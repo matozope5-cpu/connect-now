@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>ConnectNow — Chat. Connect. Earn.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ---------- TYPOGRAPHY ---------- */
+    .section-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #2563eb;
+      background: #dbeafe;
+      padding: 4px 16px;
+      border-radius: 40px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 2.1rem;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: #475569;
+      max-width: 520px;
+      margin-top: 8px;
+    }
+
+    /* ---------- BUTTONS ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      width: 100%;
+      text-align: center;
+    }
+
+    @media (min-width: 480px) {
+      .btn {
+        width: auto;
+      }
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.30);
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(37, 99, 235, 0.40);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.10);
+      border-color: #fff;
+      transform: translateY(-3px);
+    }
+
+    .btn-white {
+      background: #fff;
+      color: #1e3a8a;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 16px 0;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+      padding: 10px 0;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    header.scrolled .logo {
+      color: #0f172a;
+    }
+
+    .logo i {
+      font-size: 1.5rem;
+      color: #fff;
+      transition: color 0.3s;
+    }
+
+    header.scrolled .logo i {
+      color: #2563eb;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+      padding: 6px 0;
+    }
+
+    header.scrolled .nav-links a {
+      color: #334155;
+    }
+    .nav-links a:hover {
+      color: #fff;
+    }
+    header.scrolled .nav-links a:hover {
+      color: #2563eb;
+    }
+
+    .nav-btn {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-btn {
+        display: inline-block;
+        padding: 10px 28px;
+        border-radius: 60px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        background: #fff;
+        color: #1e3a8a;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      header.scrolled .nav-btn {
+        background: #2563eb;
+        color: #fff;
+      }
+      .nav-btn:hover {
+        transform: scale(1.04);
+      }
+    }
+
+    /* Mobile menu */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 1001;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 3px;
+      background: #fff;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    header.scrolled .hamburger span {
+      background: #0f172a;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 75%;
+      max-width: 320px;
+      height: 100vh;
+      background: #ffffff;
+      flex-direction: column;
+      padding: 80px 28px 32px;
+      gap: 24px;
+      box-shadow: -8px 0 40px rgba(0, 0, 0, 0.06);
+      transition: right 0.35s ease;
+      align-items: flex-start;
+    }
+
+    .nav-links.open {
+      right: 0;
+    }
+
+    .nav-links a {
+      color: #0f172a !important;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    .nav-links a:hover {
+      color: #2563eb !important;
+    }
+    .nav-links .nav-btn-mobile {
+      display: inline-block;
+      background: #2563eb;
+      color: #fff !important;
+      padding: 14px 28px;
+      border-radius: 60px;
+      font-weight: 600;
+      width: 100%;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .nav-links .nav-btn-mobile:hover {
+      background: #1d4ed8 !important;
+    }
+
+    @media (min-width: 768px) {
+      .hamburger {
+        display: none;
+      }
+      .nav-links {
+        position: static;
+        flex-direction: row;
+        height: auto;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        width: auto;
+        gap: 32px;
+        align-items: center;
+      }
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.85) !important;
+        font-size: 0.95rem;
+      }
+      header.scrolled .nav-links a {
+        color: #334155 !important;
+      }
+      .nav-links .nav-btn-mobile {
+        display: none;
+      }
+      .nav-btn {
+        display: inline-block;
+      }
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0 60px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: floatHero 16s ease-in-out infinite alternate;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: floatHero 20s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes floatHero {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        transform: translate(40px, 30px) scale(1.15);
+      }
+    }
+
+    .hero-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (min-width: 768px) {
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+    }
+
+    .hero-content h1 {
+      font-size: 2.4rem;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .hero-content h1 .highlight {
+      background: linear-gradient(135deg, #93c5fd, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+      max-width: 480px;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    @media (min-width: 480px) {
+      .hero-actions {
+        flex-direction: row;
+        align-items: center;
+      }
+      .hero-actions .btn {
+        width: auto;
+      }
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .hero-stats div {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    .hero-stats strong {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* Chat Card */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      order: -1;
+    }
+
+    @media (min-width: 768px) {
+      .hero-visual {
+        order: 1;
+      }
+    }
+
+    .chat-card {
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 28px 24px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .chat-preview {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .chat-msg {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      animation: slideUp 0.5s ease both;
+    }
+    .chat-msg:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+    .chat-msg:nth-child(3) {
+      animation-delay: 0.30s;
+    }
+
+    @keyframes slideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chat-msg .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #fff;
+    }
+
+    .avatar.blue {
+      background: #2563eb;
+    }
+    .avatar.green {
+      background: #059669;
+    }
+    .avatar.purple {
+      background: #7c3aed;
+    }
+
+    .chat-msg .bubble {
+      background: #f1f5f9;
+      padding: 12px 16px;
+      border-radius: 16px 16px 16px 4px;
+      color: #0f172a;
+      font-size: 0.9rem;
+      max-width: 80%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .chat-msg .bubble small {
+      display: block;
+      font-size: 0.65rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .chat-msg.incoming .bubble {
+      border-radius: 16px 16px 4px 16px;
+      background: #e0f2fe;
+    }
+
+    .badge-earn {
+      background: #059669;
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 2px 12px;
+      border-radius: 40px;
+      margin-left: 6px;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    /* ---------- HOW IT WORKS ---------- */
+    .how-section {
+      padding: 70px 0 60px;
+      background: #ffffff;
+    }
+
+    .how-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .how-header .section-sub {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .how-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    @media (min-width: 600px) {
+      .how-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 992px) {
+      .how-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+      }
+    }
+
+    .how-card {
+      background: #f8fafc;
+      border-radius: 28px;
+      padding: 36px 28px;
+      text-align: center;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .how-card:hover {
+      transform: translateY(-6px);
+      border-color: #2563eb;
+      box-shadow: 0 20px 48px rgba(37, 99, 235, 0.08);
+    }
+
+    .how-card .icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 24px;
+      background: #dbeafe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #2563eb;
+      margin: 0 auto 18px;
+    }
+
+    .how-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #0f172a;
+    }
+
+    .how-card p {
+      color: #475569;
+      font-size: 0.95rem;
+    }
+
+    /* ---------- TRUST ---------- */
+    .trust-section {
+      padding: 60px 0 70px;
+      background: #f1f5f9;
+    }
+
+    .trust-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    @media (min-width: 768px) {
+      .trust-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+    }
+
+    .trust-left .section-title {
+      font-size: 2rem;
+    }
+
+    .trust-features {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .trust-feature {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-weight: 600;
+      color: #0f172a;
+      background: #fff;
+      padding: 12px 20px;
+      border-radius: 60px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      border: 1px solid #e2e8f0;
+    }
+
+    .trust-feature i {
+      font-size: 1.2rem;
+      color: #2563eb;
+      width: 28px;
+      text-align: center;
+    }
+
+    .trust-right {
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 36px 28px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.04);
+      border: 1px solid #e2e8f0;
+    }
+
+    .trust-right blockquote {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #0f172a;
+      line-height: 1.8;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .trust-right .cite {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .trust-right .cite .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .trust-right .cite strong {
+      display: block;
+      font-size: 1rem;
+      color: #0f172a;
+    }
+    .trust-right .cite span {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    /* ---------- CTA ---------- */
+    .cta-section {
+      padding: 70px 0;
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: floatHero 18s ease-in-out infinite alternate;
+    }
+
+    .cta-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-section h2 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-section p {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      max-width: 480px;
+      margin: 12px auto 32px;
+    }
+
+    .cta-section .btn {
+      font-size: 1.05rem;
+      padding: 16px 44px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: #0f172a;
+      padding: 36px 0 28px;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    @media (min-width: 600px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
+    .footer-inner .logo {
+      color: #fff;
+      font-size: 1.1rem;
+    }
+    .footer-inner .logo i {
+      color: #2563eb;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    /* ---------- LOADING OVERLAY ---------- */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      gap: 20px;
+    }
+
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .loading-overlay .logo-big {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 2.4rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .loading-overlay .logo-big i {
+      font-size: 2.8rem;
+      color: #93c5fd;
+    }
+
+    .loading-overlay .spinner {
+      width: 56px;
+      height: 56px;
+      border: 5px solid rgba(255, 255, 255, 0.10);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-overlay .loading-text {
+      font-size: 1rem;
+      color: #cbd5e1;
+      letter-spacing: 0.5px;
+      animation: pulseText 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseText {
+      0%,
+      100% {
+        opacity: 0.5;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .loading-overlay .progress-track {
+      max-width: 240px;
+      width: 60%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .loading-overlay .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #93c5fd;
+      border-radius: 4px;
+      animation: loadBar 3s ease-in-out forwards;
+    }
+
+    @keyframes loadBar {
+      0% {
+        width: 0%;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+
+    /* ---------- SCROLLBAR ---------- */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e2e8f0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2563eb;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== LOADING OVERLAY ========== -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="logo-big">
+      <i class="fas fa-comment-dots"></i> ConnectNow
+    </div>
+    <div class="spinner"></div>
+    <div class="loading-text">Redirecting you...</div>
+    <div class="progress-track">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <header id="header">
+    <div class="container nav">
+      <a href="#" class="logo">
+        <i class="fas fa-comment-dots"></i> ConnectNow
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#trust">Why ConnectNow</a></li>
+        <li><a href="#cta" class="nav-btn-mobile">Get Started</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="#cta" class="nav-btn">Get Started</a>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1>Connect with the world. <br /><span class="highlight">Earn in Kenya.</span></h1>
+        <p>Chat with people from across the globe who are looking for real friendship and company — and get paid for every conversation.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary redirect-btn"><i class="fas fa-rocket"></i> Start Earning</a>
+          <a href="#how" class="btn btn-outline"><i class="fas fa-play-circle"></i> See How</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>2,400+</strong> Active Connectors</div>
+          <div><strong>4.9★</strong> Member Rating</div>
+          <div><strong>$12K+</strong> Earned This Month</div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="chat-card">
+          <div class="chat-preview">
+            <div class="chat-msg">
+              <div class="avatar blue">J</div>
+              <div class="bubble">
+                Hey! I'd love to learn about Kenyan culture.
+                <small>🇺🇸 James · 2 min ago</small>
+              </div>
+            </div>
+            <div class="chat-msg incoming">
+              <div class="avatar green">A</div>
+              <div class="bubble">
+                That's awesome! I'd be happy to share.
+                <span class="badge-earn">+$4.50</span>
+                <small>🇰🇪 Amara · just now</small>
+              </div>
+            </div>
+            <div class="chat-msg">
+              <div class="avatar purple">S</div>
+              <div class="bubble">
+                This is exactly what I needed — a real friend.
+                <small>🇬🇧 Sophie · 1 min ago</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section class="how-section" id="how">
+    <div class="container">
+      <div class="how-header">
+        <span class="section-label"><i class="fas fa-bolt"></i> Simple Steps</span>
+        <h2 class="section-title">Start earning in 3 steps</h2>
+        <p class="section-sub">No complex setup. Just sign up, connect, and get paid for meaningful conversations.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="icon"><i class="fas fa-user-plus"></i></div>
+          <h3>1. Create your profile</h3>
+          <p>Sign up in under 2 minutes. Tell the world who you are and what you love to talk about.</p>
+        </div>
+        <div class="how-card">
+          <div class="icon"><i class="fas fa-globe-africa"></i></div>
+          <h3>2. Get matched</h3>
+          <p>Our smart system connects you with foreigners looking for genuine company and friendship.</p>
+        </div>
+        <div class="how-card">
+          <div class="icon"><i class="fas fa-wallet"></i></div>
+          <h3>3. Chat &amp; earn</h3>
+          <p>Every conversation pays. Withdraw your earnings anytime — straight to your mobile money.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TRUST ========== -->
+  <section class="trust-section" id="trust">
+    <div class="container trust-grid">
+      <div class="trust-left">
+        <span class="section-label"><i class="fas fa-shield-alt"></i> Trusted &amp; Transparent</span>
+        <h2 class="section-title">Real people. Real connections. Real pay.</h2>
+        <p class="section-sub">ConnectNow is built for Kenyans who want to share their culture, make friends, and earn fair pay — all in a safe space.</p>
+        <div class="trust-features">
+          <div class="trust-feature"><i class="fas fa-check-circle"></i> Verified &amp; safe community</div>
+          <div class="trust-feature"><i class="fas fa-check-circle"></i> Instant payments via M-PESA</div>
+          <div class="trust-feature"><i class="fas fa-check-circle"></i> 24/7 support &amp; moderation</div>
+        </div>
+      </div>
+      <div class="trust-right">
+        <blockquote>"I've made real friends from the US, UK, and Australia — all while earning enough to pay my rent. ConnectNow changed my life."</blockquote>
+        <div class="cite">
+          <div class="avatar">MN</div>
+          <div>
+            <strong>Muthoni N.</strong>
+            <span>Nairobi, Kenya · 8 months on ConnectNow</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="cta-section" id="cta">
+    <div class="container">
+      <h2>Ready to connect &amp; earn?</h2>
+      <p>Join thousands of Kenyans already making money through meaningful conversations.</p>
+      <a href="#" class="btn btn-white redirect-btn"><i class="fas fa-arrow-right"></i> Get Started Free</a>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <div class="container footer-inner">
+      <a href="#" class="logo"><i class="fas fa-comment-dots"></i> ConnectNow</a>
+      <ul class="footer-links">
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">© 2026</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const top = target.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    // ========== REDIRECT WITH LOADING OVERLAY ==========
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const redirectBtns = document.querySelectorAll('.redirect-btn');
+
+    redirectBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Show loading overlay
+        loadingOverlay.classList.add('active');
+
+        // Reset progress bar animation
+        const progressBar = loadingOverlay.querySelector('.progress-bar');
+        progressBar.style.animation = 'none';
+        void progressBar.offsetWidth; // trigger reflow
+        progressBar.style.animation = 'loadBar 3s ease-in-out forwards';
+
+        // Redirect after 3 seconds
+        setTimeout(() => {
+          window.location.href = 'signup.html';
+        }, 3000);
+      });
+    });
+  </script>
+
+</body>
+</html>

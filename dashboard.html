@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Dashboard — ConnectNow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 40%, #2563eb 100%);
+      color: #eef2ff;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background circles */
+    body::before,
+    body::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      animation: floatBg 18s ease-in-out infinite alternate;
+      z-index: 0;
+      will-change: transform;
+    }
+    body::before {
+      width: 500px;
+      height: 500px;
+      top: -10%;
+      right: -10%;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
+    }
+    body::after {
+      width: 400px;
+      height: 400px;
+      bottom: -10%;
+      left: -10%;
+      background: radial-gradient(circle, rgba(147, 197, 253, 0.08) 0%, transparent 70%);
+      animation-duration: 22s;
+      animation-direction: alternate-reverse;
+    }
+
+    @keyframes floatBg {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.1); }
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ---------- REVIEW BANNER ---------- */
+    .review-banner {
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.25);
+      border-radius: 20px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      backdrop-filter: blur(4px);
+      animation: bannerPulse 2s ease-in-out infinite;
+    }
+    .review-banner i {
+      font-size: 1.6rem;
+      color: #fbbf24;
+      flex-shrink: 0;
+    }
+    .review-banner .content {
+      flex: 1;
+    }
+    .review-banner .content strong {
+      color: #fbbf24;
+      font-weight: 700;
+    }
+    .review-banner .content p {
+      color: rgba(255, 255, 255, 0.80);
+      font-size: 0.9rem;
+      margin-top: 2px;
+    }
+    .review-banner .status-badge {
+      background: rgba(251, 191, 36, 0.15);
+      padding: 6px 16px;
+      border-radius: 60px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.15);
+      white-space: nowrap;
+    }
+
+    @keyframes bannerPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #fff;
+      text-decoration: none;
+    }
+    .logo i {
+      color: #93c5fd;
+      font-size: 1.8rem;
+    }
+    .user-area {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 6px 12px 6px 18px;
+      border-radius: 60px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(4px);
+    }
+    .user-area .name {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .user-area .badge {
+      background: #34d399;
+      color: #0f172a;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 40px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .user-area .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+    }
+    .user-area .logout {
+      color: rgba(255, 255, 255, 0.50);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      padding: 4px 6px;
+    }
+    .user-area .logout:hover {
+      color: #f87171;
+    }
+
+    /* ---------- STATS ROW ---------- */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      padding: 18px 16px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(4px);
+    }
+    .stat-card .number {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #93c5fd;
+      line-height: 1.2;
+    }
+    .stat-card .label {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.60);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+    .stat-card .icon {
+      font-size: 1.2rem;
+      color: #fbbf24;
+      margin-bottom: 4px;
+    }
+
+    /* ---------- SEARCH / FIND PEOPLE ---------- */
+    .search-section {
+      margin-bottom: 32px;
+    }
+    .search-section .title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+    .search-section .sub {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.60);
+      margin-bottom: 14px;
+    }
+    .search-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 6px;
+      border-radius: 60px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(4px);
+      max-width: 600px;
+    }
+    .search-box input {
+      flex: 1;
+      min-width: 160px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 60px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .search-box input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+    .search-box input:focus {
+      background: rgba(255, 255, 255, 0.10);
+    }
+    .search-box select {
+      padding: 12px 16px;
+      border: none;
+      border-radius: 60px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      min-width: 120px;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='rgba(255,255,255,0.5)' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .search-box select option {
+      background: #1e3a5f;
+      color: #fff;
+    }
+    .search-box button {
+      padding: 12px 28px;
+      border: none;
+      border-radius: 60px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.30);
+      white-space: nowrap;
+    }
+    .search-box button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.50);
+    }
+
+    /* ---------- CHAT LIST ---------- */
+    .chat-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .chat-card {
+      display: grid;
+      grid-template-columns: 54px 1fr auto auto;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: background 0.2s, opacity 0.3s ease, transform 0.3s ease;
+      will-change: transform;
+      animation: cardFadeIn 0.4s ease forwards;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .chat-card:hover {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(4px);
+    }
+    .chat-card.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .chat-card.disabled .chat-btn {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .chat-card.disabled .chat-btn .lock-icon {
+      display: inline;
+    }
+    .chat-card .chat-btn .lock-icon {
+      display: none;
+    }
+
+    @keyframes cardFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chat-card:nth-child(1) { animation-delay: 0.00s; }
+    .chat-card:nth-child(2) { animation-delay: 0.04s; }
+    .chat-card:nth-child(3) { animation-delay: 0.08s; }
+    .chat-card:nth-child(4) { animation-delay: 0.12s; }
+    .chat-card:nth-child(5) { animation-delay: 0.16s; }
+    .chat-card:nth-child(6) { animation-delay: 0.20s; }
+    .chat-card:nth-child(7) { animation-delay: 0.24s; }
+    .chat-card:nth-child(8) { animation-delay: 0.28s; }
+    .chat-card:nth-child(9) { animation-delay: 0.32s; }
+    .chat-card:nth-child(10) { animation-delay: 0.36s; }
+
+    .chat-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #1e3a5f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #93c5fd;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
+    .chat-info .name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+    }
+    .chat-info .detail {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.60);
+      margin-top: 2px;
+    }
+    .chat-info .detail i {
+      margin-right: 4px;
+    }
+    .chat-earnings {
+      text-align: right;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.60);
+      line-height: 1.4;
+    }
+    .chat-earnings .amount {
+      font-weight: 700;
+      color: #fbbf24;
+      font-size: 1rem;
+    }
+
+    /* ---------- CHAT BUTTON ---------- */
+    .chat-btn {
+      background: #ffffff;
+      border: none;
+      border-radius: 60px;
+      padding: 10px 20px;
+      color: #1d4ed8;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.30);
+      letter-spacing: 0.3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chat-btn i {
+      font-size: 0.85rem;
+      color: #1d4ed8;
+    }
+    .chat-btn:hover:not(:disabled) {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(255, 255, 255, 0.30), 0 4px 16px rgba(0, 0, 0, 0.10);
+      background: #f8fafc;
+    }
+    .chat-btn:active:not(:disabled) {
+      transform: scale(0.96);
+    }
+    .chat-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* ---------- LOAD MORE ---------- */
+    .load-more-container {
+      text-align: center;
+      margin-top: 24px;
+      padding: 16px 0;
+    }
+    .load-more-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 60px;
+      padding: 14px 40px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(4px);
+      font-family: 'Inter', sans-serif;
+    }
+    .load-more-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+    .load-more-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    .load-more-btn i {
+      margin-right: 8px;
+    }
+    .load-counter {
+      color: rgba(255, 255, 255, 0.50);
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+
+    /* ---------- TOAST ---------- */
+    .toast-notification {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.90);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 60px;
+      padding: 12px 28px;
+      color: #fff;
+      font-weight: 500;
+      font-size: 0.9rem;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.30);
+      z-index: 999;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .toast-notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    .toast-notification i {
+      margin-right: 10px;
+      color: #93c5fd;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 700px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .chat-card {
+        grid-template-columns: 44px 1fr;
+        grid-template-areas:
+          "avatar info"
+          "earnings earnings"
+          "btn btn";
+        gap: 8px;
+      }
+      .chat-avatar {
+        width: 44px;
+        height: 44px;
+        font-size: 0.9rem;
+      }
+      .chat-earnings {
+        text-align: left;
+        grid-area: earnings;
+      }
+      .chat-btn {
+        grid-area: btn;
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+      .search-box {
+        border-radius: 24px;
+        padding: 12px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-box input,
+      .search-box select,
+      .search-box button {
+        border-radius: 60px;
+        width: 100%;
+      }
+      .user-area .name {
+        display: none;
+      }
+      .load-more-btn {
+        width: 100%;
+        padding: 14px 20px;
+      }
+      .toast-notification {
+        white-space: normal;
+        max-width: 90%;
+        text-align: center;
+        padding: 14px 20px;
+        bottom: 20px;
+      }
+      .review-banner {
+        flex-wrap: wrap;
+        padding: 14px 16px;
+      }
+      .review-banner .status-badge {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 12px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .stat-card .number { font-size: 1.4rem; }
+      header .logo { font-size: 1.3rem; }
+    }
+
+    /* ========== MODAL STYLING ========== */
+    .swal2-popup {
+      border-radius: 32px !important;
+      padding: 1.5rem 1.2rem !important;
+      width: 94% !important;
+      max-width: 400px !important;
+      margin: 0 auto !important;
+      font-size: 0.85rem !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.40), 0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
+      color: #eef2ff !important;
+    }
+    .swal2-title {
+      font-size: 1.3rem !important;
+      color: #fbbf24 !important;
+      font-weight: 800 !important;
+      padding: 0 !important;
+      margin-bottom: 0.5rem !important;
+      letter-spacing: -0.02em;
+    }
+    .swal2-html-container {
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+    }
+    .swal2-confirm {
+      background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+      border-radius: 60px !important;
+      font-weight: 700 !important;
+      padding: 0.7rem 1.8rem !important;
+      font-size: 0.9rem !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      color: white !important;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.30) !important;
+      transition: all 0.25s !important;
+    }
+    .swal2-confirm:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 12px 32px rgba(37, 99, 235, 0.50) !important;
+    }
+    .swal2-cancel {
+      background: rgba(255, 255, 255, 0.06) !important;
+      color: #eef2ff !important;
+      border-radius: 60px !important;
+      font-weight: 600 !important;
+      padding: 0.7rem 1.8rem !important;
+      font-size: 0.9rem !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      backdrop-filter: blur(4px) !important;
+      transition: all 0.25s !important;
+    }
+    .swal2-cancel:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+    }
+    .swal2-actions {
+      margin: 0.8rem 0 0 !important;
+      gap: 0.6rem !important;
+    }
+    .modal-content {
+      text-align: left;
+      width: 100%;
+    }
+    .modal-icon {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .modal-detail-box {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.7rem;
+      border-radius: 16px;
+      margin: 0.6rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #eef2ff;
+      text-align: center;
+    }
+    .modal-detail-box strong {
+      color: #fbbf24;
+    }
+    .modal-note {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.50);
+      text-align: center;
+      margin-top: 0.3rem;
+    }
+    .phone-input-group {
+      display: flex;
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      margin: 0.5rem 0;
+    }
+    .phone-prefix {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.6rem 0.7rem;
+      font-weight: 600;
+      color: #93c5fd;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+    .phone-input {
+      border: none;
+      padding: 0.6rem 0.7rem;
+      width: 100%;
+      outline: none;
+      font-size: 0.85rem;
+      background: transparent;
+      color: #fff;
+    }
+    .phone-input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+  </style>
+</head>
+<body>
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="toastNotification">
+    <i class="fas fa-sync-alt"></i> <span id="toastMessage">Refreshing suggestions...</span>
+  </div>
+
+  <div class="container">
+
+    <!-- ========== REVIEW BANNER (hidden by default) ========== -->
+    <div class="review-banner" id="reviewBanner" style="display:none;">
+      <i class="fas fa-clock"></i>
+      <div class="content">
+        <strong>Account under review</strong>
+        <p>Your account is being verified. Chats will be available after approval (up to 24 hours).</p>
+      </div>
+      <div class="status-badge"><i class="fas fa-spinner fa-spin"></i> Pending</div>
+    </div>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+      <a href="index.html" class="logo">
+        <i class="fas fa-comment-dots"></i> ConnectNow
+      </a>
+      <div class="user-area">
+        <span class="badge">Verified</span>
+        <span class="name">John M.</span>
+        <div class="avatar">JM</div>
+        <button class="logout" onclick="alert('Logging out...')" title="Logout">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========== STATS ========== -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="icon"><i class="fas fa-comments"></i></div>
+        <div class="number">18</div>
+        <div class="label">Active Chats</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon"><i class="fas fa-star"></i></div>
+        <div class="number">4.9</div>
+        <div class="label">Rating</div>
+      </div>
+    </div>
+
+    <!-- ========== FIND PEOPLE ========== -->
+    <div class="search-section">
+      <div class="title">Find new people to chat with</div>
+      <div class="sub">Connect with foreigners looking for genuine conversation and company</div>
+      <div class="search-box" id="searchBox">
+        <input type="text" placeholder="Search by name, country, or interest..." id="searchInput" />
+        <select id="countryFilter">
+          <option value="">All Countries</option>
+          <option value="US">🇺🇸 United States</option>
+          <option value="UK">🇬🇧 United Kingdom</option>
+          <option value="CA">🇨🇦 Canada</option>
+          <option value="AU">🇦🇺 Australia</option>
+          <option value="DE">🇩🇪 Germany</option>
+          <option value="FR">🇫🇷 France</option>
+          <option value="AE">🇦🇪 UAE</option>
+        </select>
+        <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+      </div>
+    </div>
+
+    <!-- ========== ACTIVE CHATS ========== -->
+    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; flex-wrap:wrap;">
+      <h3 style="font-weight:700; font-size:1.2rem; color:#fff;">Active Conversations</h3>
+      <span style="font-size:0.8rem; color:rgba(255,255,255,0.50);">Chat with foreigners to earn</span>
+    </div>
+
+    <div class="chat-list" id="chatList"></div>
+
+    <!-- ========== LOAD MORE ========== -->
+    <div class="load-more-container" id="loadMoreContainer">
+      <button class="load-more-btn" id="loadMoreBtn">
+        <i class="fas fa-chevron-down"></i> Load More
+      </button>
+      <div class="load-counter" id="loadCounter">Showing 0 of 0</div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <div style="margin-top:48px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:0.8rem; color:rgba(255,255,255,0.40);">
+      <span>© 2026 ConnectNow · All rights reserved</span>
+      <span>
+        <a href="#" style="color:inherit; text-decoration:none; margin-right:16px;">Privacy</a>
+        <a href="#" style="color:inherit; text-decoration:none; margin-right:16px;">Support</a>
+        <a href="index.html" style="color:inherit; text-decoration:none;"><i class="fas fa-arrow-left"></i> Home</a>
+      </span>
+    </div>
+
+  </div>
+
+  <script>
+    // ========== ACCOUNT STATUS ==========
+    function getAccountStatus() {
+      return localStorage.getItem('accountStatus') || 'active';
+    }
+
+    function setAccountStatus(status) {
+      localStorage.setItem('accountStatus', status);
+    }
+
+    function isUnderReview() {
+      return getAccountStatus() === 'pending_review';
+    }
+
+    // ========== COUNTRY MAP ==========
+    function getCountryName(code) {
+      const map = {
+        'US': 'United States',
+        'UK': 'United Kingdom',
+        'CA': 'Canada',
+        'AU': 'Australia',
+        'DE': 'Germany',
+        'FR': 'France',
+        'AE': 'UAE'
+      };
+      return map[code] || code;
+    }
+
+    // ========== PAGINATION STATE ==========
+    let allUsers = [];
+    let currentPage = 0;
+    const PAGE_SIZE = 10;
+    let isLoading = false;
+
+    // ========== IDLE REFRESH STATE ==========
+    let idleTimer = null;
+    const IDLE_TIMEOUT = 20000;
+    let isModalOpen = false;
+    let isRefreshing = false;
+
+    // ========== TOAST ==========
+    let toastTimeout = null;
+
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // ========== SHUFFLE ==========
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // ========== IDLE REFRESH ==========
+    function performIdleRefresh() {
+      if (isModalOpen || isRefreshing || allUsers.length === 0) {
+        if (isModalOpen) resetIdleTimer();
+        return;
+      }
+      if (isUnderReview()) {
+        // Don't refresh if under review – keep the list stable
+        resetIdleTimer();
+        return;
+      }
+
+      isRefreshing = true;
+      shuffleArray(allUsers);
+      currentPage = 0;
+      const container = document.getElementById('chatList');
+      container.innerHTML = '';
+      renderPage();
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      loadMoreBtn.disabled = false;
+      loadMoreBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Load More';
+      showToast('🔄 New suggestions loaded');
+      isRefreshing = false;
+      resetIdleTimer();
+    }
+
+    function resetIdleTimer() {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(performIdleRefresh, IDLE_TIMEOUT);
+    }
+
+    // ========== RENDER ==========
+    function renderChats(usersData) {
+      allUsers = usersData;
+      currentPage = 0;
+      document.getElementById('chatList').innerHTML = '';
+      renderPage();
+      updateCounter();
+      resetIdleTimer();
+      updateReviewBanner();
+    }
+
+    function renderPage() {
+      const container = document.getElementById('chatList');
+      const start = currentPage * PAGE_SIZE;
+      const end = Math.min(start + PAGE_SIZE, allUsers.length);
+      const pageUsers = allUsers.slice(start, end);
+      const underReview = isUnderReview();
+
+      const fragment = document.createDocumentFragment();
+
+      pageUsers.forEach(user => {
+        const card = document.createElement('div');
+        card.className = 'chat-card';
+        if (underReview) card.classList.add('disabled');
+
+        const btnDisabled = underReview ? 'disabled' : '';
+        const btnText = underReview ? 'Under Review' : 'Chat';
+        const lockIcon = underReview ? '<span class="lock-icon"><i class="fas fa-lock"></i> </span>' : '';
+
+        card.innerHTML = `
+          <div class="chat-avatar">${user.initials}</div>
+          <div class="chat-info">
+            <div class="name">${user.name}</div>
+            <div class="detail"><i class="fas fa-map-pin"></i> ${getCountryName(user.country)} · <i class="fas fa-clock"></i> ${user.status}</div>
+          </div>
+          <div class="chat-earnings">
+            <div>Chat to earn</div>
+            <div class="amount">$ ${user.earnings}</div>
+          </div>
+          <button class="chat-btn" ${btnDisabled} data-user='${JSON.stringify(user)}'>
+            ${lockIcon}<i class="fas fa-comment"></i> ${btnText}
+          </button>
+        `;
+        fragment.appendChild(card);
+      });
+
+      container.appendChild(fragment);
+
+      container.querySelectorAll('.chat-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const user = JSON.parse(this.dataset.user);
+          resetIdleTimer();
+
+          if (isUnderReview()) {
+            Swal.fire({
+              title: 'Account Under Review',
+              html: `
+                <div class="modal-content">
+                  <div class="modal-icon" style="color:#fbbf24;"><i class="fas fa-clock"></i></div>
+                  <p style="text-align:center; font-size:0.95rem; color:#eef2ff;">
+                    Your account is currently under review.
+                  </p>
+                  <div class="modal-detail-box">
+                    Chats will be available after verification<br>
+                    <span style="font-size:0.8rem; color:rgba(255,255,255,0.5);">(up to 24 hours)</span>
+                  </div>
+                  <p class="modal-note">You'll receive a notification once approved.</p>
+                </div>
+              `,
+              confirmButtonText: 'Got it',
+              confirmButtonColor: '#2563eb'
+            });
+            return;
+          }
+
+          openChatModal(user);
+        });
+      });
+
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      if (end >= allUsers.length) {
+        loadMoreBtn.disabled = true;
+        loadMoreBtn.innerHTML = '<i class="fas fa-check"></i> All Loaded';
+      } else {
+        loadMoreBtn.disabled = false;
+        loadMoreBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Load More';
+      }
+      updateCounter();
+    }
+
+    function updateCounter() {
+      const shown = Math.min((currentPage + 1) * PAGE_SIZE, allUsers.length);
+      document.getElementById('loadCounter').textContent = `Showing ${shown} of ${allUsers.length} people`;
+    }
+
+    function updateReviewBanner() {
+      const banner = document.getElementById('reviewBanner');
+      if (isUnderReview()) {
+        banner.style.display = 'flex';
+      } else {
+        banner.style.display = 'none';
+      }
+    }
+
+    // ========== LOAD MORE ==========
+    document.getElementById('loadMoreBtn').addEventListener('click', function() {
+      if (isLoading) return;
+      isLoading = true;
+      resetIdleTimer();
+
+      const totalShown = (currentPage + 1) * PAGE_SIZE;
+      if (totalShown >= allUsers.length) {
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-check"></i> All Loaded';
+        isLoading = false;
+        return;
+      }
+
+      currentPage++;
+      renderPage();
+      isLoading = false;
+      const chatList = document.getElementById('chatList');
+      const lastCard = chatList.lastElementChild;
+      if (lastCard) lastCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    // ========== SEARCH ==========
+    document.getElementById('searchBtn').addEventListener('click', function() {
+      resetIdleTimer();
+      performIdleRefresh();
+    });
+    document.getElementById('searchInput').addEventListener('input', resetIdleTimer);
+    document.getElementById('countryFilter').addEventListener('change', resetIdleTimer);
+
+    document.addEventListener('click', function(e) {
+      if (e.closest('.swal2-popup')) return;
+      resetIdleTimer();
+    });
+
+    // ========== PAYHERO ==========
+    const API = {
+      normalizePhone: '/api/normalize-phone',
+      initiatePayment: '/api/initiate-payment',
+      verifyPayment: '/api/verify-payment'
+    };
+
+    function validatePhone(raw) {
+      let cleaned = raw.replace(/\D/g, '');
+      if (cleaned.startsWith('0')) cleaned = cleaned.substring(1);
+      if (cleaned.startsWith('254')) cleaned = cleaned.substring(3);
+      if (cleaned.length !== 9) throw new Error('Enter 9 digits e.g., 712345678');
+      if (!cleaned.startsWith('7') && !cleaned.startsWith('1')) {
+        throw new Error('Must start with 7 or 1');
+      }
+      return cleaned;
+    }
+
+    function displayPhoneForModal(phone) {
+      if (phone.length === 9) return '0' + phone;
+      return phone;
+    }
+
+    async function normalizePhone(phone) {
+      const res = await fetch(API.normalizePhone, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: phone })
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Phone normalization failed');
+      }
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || 'Invalid phone');
+      return data.normalized_phone;
+    }
+
+    async function initiatePayment(phoneNumber, amount, description) {
+      const res = await fetch(API.initiatePayment, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone_number: phoneNumber,
+          amount: amount,
+          description: description || 'Chat features'
+        })
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Payment initiation failed');
+      }
+      return await res.json();
+    }
+
+    async function verifyPayment(reference) {
+      const res = await fetch(`${API.verifyPayment}?reference=${reference}`);
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Verification failed');
+      }
+      return await res.json();
+    }
+
+    async function pollPayment(reference, maxAttempts = 10, interval = 4000) {
+      for (let i = 0; i < maxAttempts; i++) {
+        const result = await verifyPayment(reference);
+        const status = (result.status || '').toUpperCase();
+        if (status === 'SUCCESS' || status === 'COMPLETED') return { success: true, data: result };
+        if (['FAILED', 'CANCELLED', 'TIMEOUT', 'EXPIRED'].includes(status)) {
+          return { success: false, error: `Payment ${status.toLowerCase()}` };
+        }
+        if (i < maxAttempts - 1) await new Promise(r => setTimeout(r, interval));
+      }
+      return { success: false, error: 'Payment verification timeout' };
+    }
+
+    // ========== OPEN CHAT MODAL (Pay Ksh 499) ==========
+    async function openChatModal(user) {
+      // Prevent payment if already under review
+      if (isUnderReview()) {
+        Swal.fire({
+          title: 'Account Under Review',
+          html: `
+            <div class="modal-content">
+              <div class="modal-icon" style="color:#fbbf24;"><i class="fas fa-clock"></i></div>
+              <p style="text-align:center; font-size:0.95rem; color:#eef2ff;">
+                Your account is currently under review.
+              </p>
+              <div class="modal-detail-box">
+                Chats will be available after verification<br>
+                <span style="font-size:0.8rem; color:rgba(255,255,255,0.5);">(up to 24 hours)</span>
+              </div>
+              <p class="modal-note">You'll receive a notification once approved.</p>
+            </div>
+          `,
+          confirmButtonText: 'Got it',
+          confirmButtonColor: '#2563eb'
+        });
+        return;
+      }
+
+      const amount = 499;
+      const description = `Chat with ${user.name} (ConnectNow)`;
+
+      isModalOpen = true;
+      clearTimeout(idleTimer);
+
+      const confirm = await Swal.fire({
+        title: 'Unlock Chat Features',
+        html: `
+          <div class="modal-content">
+            <div class="modal-icon" style="color:#fbbf24;"><i class="fas fa-comment"></i></div>
+            <div class="modal-detail-box">
+              <strong>${user.name}</strong> from ${getCountryName(user.country)}
+            </div>
+            <p style="font-size:0.85rem; color:rgba(255,255,255,0.7); text-align:center;">
+              Pay <strong style="color:#fbbf24;">Ksh ${amount}</strong> to start chatting
+            </p>
+            <p class="modal-note">You'll receive an STK push on your phone</p>
+          </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: `Pay Ksh ${amount}`,
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#2563eb',
+        cancelButtonColor: 'rgba(255,255,255,0.06)',
+        reverseButtons: false
+      });
+
+      if (!confirm.isConfirmed) {
+        isModalOpen = false;
+        resetIdleTimer();
+        return;
+      }
+
+      const { value: phoneRaw } = await Swal.fire({
+        title: 'Enter M-Pesa Number',
+        html: `
+          <div class="modal-content">
+            <div class="modal-icon" style="color:#93c5fd;"><i class="fas fa-mobile-alt"></i></div>
+            <div class="phone-input-group">
+              <div class="phone-prefix">+254</div>
+              <input type="tel" class="phone-input" id="swal-phone" placeholder="712345678" maxlength="10">
+            </div>
+            <p class="modal-note">You'll receive payment request on this number</p>
+          </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Proceed',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#2563eb',
+        cancelButtonColor: 'rgba(255,255,255,0.06)',
+        didOpen: () => {
+          const input = document.getElementById('swal-phone');
+          if (input) {
+            let savedPhone = localStorage.getItem('userPhone') || '795567653';
+            let cleanPhone = savedPhone.replace(/\D/g, '');
+            if (cleanPhone.startsWith('254')) cleanPhone = cleanPhone.substring(3);
+            if (cleanPhone.startsWith('0')) cleanPhone = cleanPhone.substring(1);
+            input.value = cleanPhone;
+            input.focus();
+            input.setSelectionRange(input.value.length, input.value.length);
+            input.addEventListener('input', function() {
+              this.value = this.value.replace(/\D/g, '').slice(0, 10);
+            });
+          }
+        },
+        preConfirm: () => {
+          const input = document.getElementById('swal-phone');
+          const raw = input ? input.value : '';
+          try {
+            return validatePhone(raw);
+          } catch (e) {
+            Swal.showValidationMessage(e.message);
+            return false;
+          }
+        }
+      });
+
+      if (!phoneRaw) {
+        isModalOpen = false;
+        resetIdleTimer();
+        return;
+      }
+
+      const displayPhone = displayPhoneForModal(phoneRaw);
+
+      try {
+        Swal.fire({
+          title: 'Processing',
+          html: '<div style="padding:0.5rem;">Please wait...</div>',
+          allowOutsideClick: false,
+          didOpen: () => Swal.showLoading()
+        });
+
+        const normalized = await normalizePhone(phoneRaw);
+
+        Swal.update({
+          title: 'Sending Request',
+          html: '<div style="padding:0.5rem;">Initiating M-Pesa...</div>'
+        });
+
+        const payment = await initiatePayment(normalized, amount, description);
+        if (!payment.reference) throw new Error('No payment reference received');
+
+        await Swal.fire({
+          title: '📱 Check your phone',
+          html: `
+            <div class="modal-content">
+              <div class="modal-icon" style="color:#fbbf24;"><i class="fas fa-mobile-alt"></i></div>
+              <p style="text-align:center; font-weight:600;">Enter M-Pesa PIN</p>
+              <div class="modal-detail-box">${displayPhone}</div>
+              <p class="modal-note">Waiting for confirmation...</p>
+            </div>
+          `,
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true
+        });
+
+        Swal.fire({
+          title: 'Verifying',
+          html: `
+            <div style="padding:0.5rem; text-align:center;">
+              <div style="margin:0.5rem auto; width:40px; height:40px; border:4px solid rgba(255,255,255,0.1); border-top-color:#fbbf24; border-radius:50%; animation: spin 0.9s linear infinite;"></div>
+              <p style="margin-top:0.5rem;">Confirming payment...</p>
+            </div>
+          `,
+          showConfirmButton: false,
+          allowOutsideClick: false
+        });
+
+        if (!document.getElementById('spinStyle')) {
+          const style = document.createElement('style');
+          style.id = 'spinStyle';
+          style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+          document.head.appendChild(style);
+        }
+
+        const pollResult = await pollPayment(payment.reference);
+
+        if (pollResult.success) {
+          // ===== ACCOUNT NOW UNDER REVIEW =====
+          setAccountStatus('pending_review');
+
+          await Swal.fire({
+            title: '⏳ Account Under Review',
+            html: `
+              <div class="modal-content">
+                <div class="modal-icon" style="color:#fbbf24;"><i class="fas fa-clock"></i></div>
+                <p style="text-align:center; font-size:0.95rem; color:#eef2ff; font-weight:600;">
+                  Your account is now under review.
+                </p>
+                <div class="modal-detail-box">
+                  It may take up to <strong>24 hours</strong> for your account to be verified and chat ready.
+                </div>
+                <p class="modal-note">You'll receive a notification once your account is approved.</p>
+              </div>
+            `,
+            confirmButtonText: 'Got it',
+            confirmButtonColor: '#2563eb'
+          });
+
+          // Re-render to show disabled buttons and banner
+          renderPage();
+          updateReviewBanner();
+          showToast('⏳ Account under review – chats will be ready within 24 hours');
+
+        } else {
+          throw new Error(pollResult.error || 'Payment not confirmed');
+        }
+
+      } catch (err) {
+        await Swal.fire({
+          title: '⚠️ Status',
+          html: `
+            <div class="modal-content">
+              <div class="modal-icon" style="color:#f59e0b;"><i class="fas fa-exclamation-triangle"></i></div>
+              <p style="text-align:center; font-weight:600;">${err.message || 'Payment issue'}</p>
+              <p class="modal-note">If amount deducted, contact support</p>
+            </div>
+          `,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#1e4a6e'
+        });
+      }
+
+      isModalOpen = false;
+      resetIdleTimer();
+    }
+
+    // ========== INIT ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('foreigners.json')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load foreigners.json');
+          return response.json();
+        })
+        .then(data => {
+          renderChats(data);
+          updateReviewBanner();
+        })
+        .catch(error => {
+          console.error('Error loading foreigners data:', error);
+          document.getElementById('chatList').innerHTML = `
+            <div style="text-align:center; padding:40px; color:rgba(255,255,255,0.60);">
+              <i class="fas fa-exclamation-triangle" style="font-size:2rem; color:#fbbf24; display:block; margin-bottom:12px;"></i>
+              <p>Could not load user data. Please ensure <strong>foreigners.json</strong> exists in the same directory.</p>
+              <p style="font-size:0.8rem; margin-top:8px;">If you're running locally, try using a local server (e.g., VS Code Live Server).</p>
+            </div>
+          `;
+          document.getElementById('loadMoreContainer').style.display = 'none';
+        });
+    });
+  </script>
+</body>
+</html>

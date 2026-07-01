@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>AllTasksPro - Live Foreigners Online</title>
+    <meta name="description" content="Connect with live foreigners. They pay to connect with you. Money goes to your wallet. One-time activation unlocks unlimited access.">
+    <link rel="icon" type="image/x-icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj9FksMD8Z_w42Hr2iHcYH7_UczySz9QflzvHvQ118OYiFFKovpZOOF3nIzvFz-JDpzp4GhiX1S4bGpQFF7qSRJA_-rlc6NvXhqsYP9d1Le_1qwnaxXxye3Nueb5T-M_y05B4nKMjU4dw-rvBssTBBR7IV8pmscrWHQhbLk2AwgyccZ5lvC8KNUZokubzE/s1024/18951.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F2F2F2;
+            color: #1E293B;
+            font-size: 13px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #1E3A5F;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #C23B22;
+            transform: translateX(-3px);
+        }
+
+        .chatter-card {
+            background: linear-gradient(135deg, #059669, #047857);
+            border-radius: 24px;
+            padding: 24px 28px;
+            margin-bottom: 30px;
+            color: white;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(5, 150, 105, 0.3);
+        }
+
+        .chatter-card::after {
+            content: "";
+            position: absolute;
+            bottom: 12px;
+            left: 28px;
+            right: 28px;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 10px, transparent 10px, transparent 20px);
+        }
+
+        .chatter-title {
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .chatter-amount {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .chatter-daily {
+            font-size: 11px;
+            font-weight: 500;
+            opacity: 0.85;
+            margin-bottom: 4px;
+        }
+
+        .chatter-monthly {
+            font-size: 10px;
+            font-weight: 400;
+            opacity: 0.75;
+            margin-bottom: 16px;
+        }
+
+        .chatter-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .chatter-note {
+            font-size: 11px;
+            font-weight: 500;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .country-selector-inline {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            padding: 5px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(4px);
+            font-size: 11px;
+        }
+
+        .country-selector-inline label {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .country-selector-inline select {
+            background: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #047857;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .features-highlight {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 16px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E2E8F0;
+            transition: all 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: #C23B22;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #1E3A5F, #C23B22);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            color: white;
+            font-size: 22px;
+        }
+
+        .feature-card h4 {
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: #1E3A5F;
+        }
+
+        .feature-card p {
+            font-size: 11px;
+            color: #475569;
+        }
+
+        .activation-notice {
+            background: linear-gradient(135deg, #1E3A5F, #C23B22);
+            border-radius: 24px;
+            padding: 28px 24px;
+            margin: 30px 0;
+            color: white;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .activation-notice h2 {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .activation-notice h2 i {
+            margin-right: 8px;
+        }
+
+        .activation-notice p {
+            font-size: 14px;
+            margin-bottom: 16px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .unlock-badge {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 60px;
+            padding: 12px 24px;
+            display: inline-block;
+            margin: 16px auto;
+        }
+
+        .unlock-badge .fee-amount {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .activate-btn {
+            background: white;
+            color: #C23B22;
+            padding: 14px 40px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .activate-btn:hover {
+            transform: scale(1.03);
+            background: #10B981;
+            color: white;
+        }
+
+        .refund-note {
+            font-size: 11px;
+            margin-top: 16px;
+            opacity: 0.8;
+        }
+
+        .foreigners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .foreigner-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FEFAF8;
+            padding: 10px 14px;
+            border-radius: 18px;
+            border: 1px solid #FFE2D4;
+            animation: fadeInScale 0.3s ease;
+            transition: all 0.2s;
+        }
+
+        .foreigner-card:hover {
+            background: #FFF5F0;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .foreigner-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .foreigner-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            background-color: #E2E8F0;
+            flex-shrink: 0;
+        }
+
+        .online-status-badge {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 9px;
+            height: 9px;
+            background: #10B981;
+            border-radius: 50%;
+            border: 2px solid white;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1
+            }
+            50% {
+                opacity: 0.5
+            }
+        }
+
+        .foreigner-name {
+            font-weight: 800;
+            font-size: 12px;
+        }
+
+        .status-text {
+            font-size: 9px;
+            font-weight: 600;
+            margin-top: 3px;
+            color: #10B981;
+        }
+
+        .action-buttons {
+            margin-left: 8px;
+        }
+
+        .btn-start-chat {
+            background: linear-gradient(135deg, #1E3A5F, #C23B22);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 40px;
+            font-size: 10px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-start-chat:hover {
+            transform: scale(1.02);
+            background: #10B981;
+        }
+
+        .refresh-indicator {
+            font-size: 10px;
+            color: #64748B;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+        }
+
+        .popup-card {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 28px;
+            overflow-y: auto;
+            max-height: 90vh;
+            animation: popupSlideIn 0.3s ease;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            margin: 2% 0;
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .popup-header {
+            background: linear-gradient(135deg, #1E3A5F, #C23B22);
+            padding: 18px;
+            color: white;
+            text-align: center;
+        }
+
+        .popup-header i {
+            font-size: 38px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .popup-header h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .popup-foreigner-name {
+            font-size: 0.85rem;
+            opacity: 0.95;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .popup-body {
+            padding: 18px;
+        }
+
+        .popup-body p {
+            color: #475569;
+            margin-bottom: 10px;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .payment-detail-box {
+            background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+            padding: 14px;
+            border-radius: 18px;
+            margin: 12px 0;
+            text-align: center;
+            border: 1px solid #86EFAC;
+        }
+
+        .payment-amount {
+            font-size: 26px;
+            font-weight: 800;
+            color: #059669;
+        }
+
+        .payment-time {
+            font-size: 11px;
+            color: #166534;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .currency-converter-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .converter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(5, 150, 105, 0.15);
+            padding: 5px 12px;
+            border-radius: 40px;
+            font-size: 10px;
+            color: #047857;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid rgba(5, 150, 105, 0.4);
+            font-weight: 600;
+        }
+
+        .converter-badge i {
+            font-size: 10px;
+        }
+
+        .converter-badge:hover {
+            background: rgba(5, 150, 105, 0.25);
+            transform: scale(1.02);
+        }
+
+        .converter-note {
+            font-size: 9px;
+            color: #64748B;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        .info-box {
+            background: #FEFAF8;
+            padding: 12px;
+            border-radius: 16px;
+            margin: 12px 0;
+            border: 1px solid #FFE2D4;
+        }
+
+        .info-box h4 {
+            color: #1E3A5F;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-box ul {
+            list-style: none;
+        }
+
+        .info-box li {
+            font-size: 10px;
+            color: #334155;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box li i {
+            color: #10B981;
+            width: 14px;
+            font-size: 10px;
+        }
+
+        .active-account-note {
+            background: #FFF8E7;
+            padding: 10px;
+            border-radius: 14px;
+            margin: 12px 0;
+            text-align: center;
+            font-size: 10px;
+            border-left: 4px solid #F59E0B;
+            font-weight: 500;
+        }
+
+        .active-account-note i {
+            color: #F59E0B;
+            margin-right: 6px;
+            font-size: 12px;
+        }
+
+        .waiting-badge {
+            background: #FFF0EB;
+            padding: 10px;
+            border-radius: 14px;
+            margin: 12px 0;
+            text-align: center;
+            font-size: 10px;
+            border-left: 4px solid #C23B22;
+            font-weight: 500;
+        }
+
+        .earning-tip {
+            background: #EFF6FF;
+            padding: 8px;
+            border-radius: 12px;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 10px;
+            color: #1E3A5F;
+        }
+
+        .popup-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .popup-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 13px;
+            transition: 0.2s;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+        }
+
+        .popup-btn-primary {
+            background: linear-gradient(135deg, #1E3A5F, #C23B22);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-btn-primary:hover {
+            transform: scale(1.02);
+            background: #10B981;
+        }
+
+        .popup-btn-secondary {
+            background: #F1F5F9;
+            color: #1E3A5F;
+            border: 1px solid #E2E8F0;
+        }
+
+        .popup-btn-secondary:hover {
+            background: #E2E8F0;
+        }
+
+        .testimonial {
+            background: white;
+            border-radius: 16px;
+            padding: 14px;
+            margin: 20px 0;
+            text-align: center;
+            font-style: italic;
+            font-size: 12px;
+            color: #475569;
+            border-left: 4px solid #C23B22;
+        }
+
+        @media (max-width: 768px) {
+            .foreigners-grid {
+                grid-template-columns: 1fr;
+            }
+            .chatter-card {
+                padding: 18px;
+            }
+            .chatter-amount {
+                font-size: 22px;
+            }
+            .chatter-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .activation-notice h2 {
+                font-size: 1.3rem;
+            }
+            .popup-buttons {
+                flex-direction: column;
+            }
+            .action-buttons {
+                margin-left: 0;
+                margin-top: 6px;
+            }
+            .foreigner-card {
+                flex-wrap: wrap;
+            }
+            .popup-card {
+                max-width: 95%;
+            }
+            .popup-header {
+                padding: 14px;
+            }
+            .popup-header i {
+                font-size: 28px;
+            }
+            .popup-header h3 {
+                font-size: 1rem;
+            }
+            .popup-body {
+                padding: 14px;
+            }
+            .payment-amount {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+        <!-- CHATTER CARD -->
+        <div class="chatter-card">
+            <div class="chatter-title">💬 Typical chatters earn:</div>
+            <div class="chatter-amount" id="chatterAmount">KES 1,000 - 4,500</div>
+            <div class="chatter-daily">daily potential</div>
+            <div class="chatter-monthly" id="monthlyEarning">up to KES 50,000+ in a month for beginners</div>
+            <div class="chatter-footer">
+                <div class="chatter-note"><i class="fas fa-clock"></i> Activate once, earn forever</div>
+                <div class="country-selector-inline">
+                    <label><i class="fas fa-map-marker-alt"></i> Country:</label>
+                    <select id="countrySelectInline">
+          <option value="KES">🇰🇪 Kenya (KES)</option>
+          <option value="NGN">🇳🇬 Nigeria (₦)</option>
+          <option value="GHS">🇬🇭 Ghana (₵)</option>
+          <option value="UGX">🇺🇬 Uganda (UGX)</option>
+          <option value="TZS">🇹🇿 Tanzania (TSh)</option>
+          <option value="ZAR">🇿🇦 South Africa (R)</option>
+          <option value="RWF">🇷🇼 Rwanda (RF)</option>
+          <option value="ZMW">🇿🇲 Zambia (ZMW)</option>
+          <option value="ETB">🇪🇹 Ethiopia (Br)</option>
+          <option value="XAF">🇨🇲 Cameroon (FCFA)</option>
+          <option value="XOF">🇨🇮 Ivory Coast (CFA)</option>
+          <option value="GMD">🇬🇲 Gambia (D)</option>
+          <option value="USD">🌍 Other (USD)</option>
+        </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- LIVE FOREIGNERS SECTION -->
+        <h2 style="color: #1E3A5F;">💬 Live Foreigners Online <span style="font-size: 12px; background: #10B98120; padding: 2px 10px; border-radius: 30px; margin-left: 10px;">Active Now</span></h2>
+        <p style="color: #64748B; margin-bottom: 10px;">✨ Click "Start Chat" to connect. Foreigners pay for your time.</p>
+
+        <div class="foreigners-grid" id="foreignersGrid"></div>
+        <div class="refresh-indicator" id="refreshIndicator">🔄 Real people waiting to connect with you</div>
+
+        <!-- FEATURES SECTION -->
+        <div class="features-highlight">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                <h4>Foreigners Pay to Connect</h4>
+                <p>They pay for your time and attention. You never ask for money — it's built into the platform.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-wallet"></i></div>
+                <h4>Money to Your Wallet</h4>
+                <p>All payments go directly to your AllTasksPro account. Withdraw instantly to M-Pesa, MoMo, or bank.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-globe"></i></div>
+                <h4>Global Members</h4>
+                <p>Chat with verified people from USA, UK, Canada, Europe and Australia.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Safe & Verified</h4>
+                <p>100,000+ active African earners. 4.9★ TrustScore. 24/7 moderation.</p>
+            </div>
+        </div>
+
+        <!-- ACTIVATION NOTICE -->
+        <div class="activation-notice">
+            <h2><i class="fas fa-unlock-alt"></i> One Activation. Unlimited Access.</h2>
+            <p>Register once, pay a small one-time fee, and unlock access to <strong>ALL foreigners</strong> on the platform. No limits. No restrictions. Chat as much as you want.</p>
+            <div class="unlock-badge">
+                <div class="fee-amount"><i class="fas fa-infinity"></i> One Small Fee • Unlimited Earnings</div>
+            </div>
+            <p><strong>👉 How it works:</strong> Foreigners pay to connect with you → Money goes to your AllTasksPro wallet → You withdraw instantly to M-Pesa.</p>
+            <button id="activateNowBtn" type="button" class="activate-btn"><i class="fas fa-rocket"></i> Register & Activate Now →</button>
+            <div class="refund-note"><i class="fas fa-check-circle"></i> One-time • Lifetime access • Your wallet = your money</div>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="testimonial">
+            <i class="fas fa-quote-left" style="color: #C23B22; margin-right: 5px;"></i> I was nervous at first, but the activation fee paid itself back in just 2 hours. Now foreigners pay to talk with me daily!
+            <strong>- Kelvin, Kenya 🇰🇪</strong>
+        </div>
+    </div>
+
+    <!-- POPUP MODAL -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-card">
+            <div class="popup-header">
+                <i class="fas fa-hand-holding-usd"></i>
+                <h3>⚠️ Premium Required</h3>
+                <div class="popup-foreigner-name" id="popupForeignerName"></div>
+            </div>
+            <div class="popup-body">
+                <p>This foreigner will pay to connect with you. Here's how it works:</p>
+
+                <div class="payment-detail-box">
+                    <div class="payment-amount" id="paymentAmount">$20 USD</div>
+                    <div class="payment-time" id="paymentTime">for 30 minutes of chatting</div>
+                    <div class="currency-converter-row">
+                        <div class="converter-badge" id="converterBadge">
+                            <i class="fas fa-exchange-alt"></i> <span id="converterText">Convert to my currency</span>
+                        </div>
+                    </div>
+                    <div class="converter-note" id="converterNote"></div>
+                </div>
+
+                <div class="active-account-note">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>Upgrade to premium to access this chat</strong>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-gem"></i> Your Account = Your Wallet</h4>
+                    <ul>
+                        <li><i class="fas fa-wallet"></i> All payments go to your AllTasksPro account balance</li>
+                        <li><i class="fas fa-money-bill-wave"></i> Withdraw instantly to M-Pesa, MoMo, or Bank</li>
+                        <li><i class="fas fa-chart-line"></i> Track all your earnings in real-time</li>
+                        <li><i class="fas fa-star"></i> No hidden fees, no monthly charges</li>
+                    </ul>
+                </div>
+
+                <div class="earning-tip">
+                    <i class="fas fa-rocket"></i> <strong>Pro Tip:</strong> Active chatters earn KES 3,000-15,000+ weekly. Foreigners pay to connect with you daily!
+                </div>
+
+                <div class="waiting-badge">
+                    <i class="fas fa-hourglass-half"></i> <span id="waitingText">Someone is waiting to connect with you!</span>
+                </div>
+
+                <div class="popup-buttons">
+                    <button class="popup-btn popup-btn-primary" id="payPremium">✨ Pay Premium(ksh499)✨</button>
+                    <button class="popup-btn popup-btn-secondary" id="closePopupBtn">Maybe Later</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 100+ UNIQUE FOREIGNER NAMES ====================
+        const femaleFirstNames = [
+            "Margaret", "Dorothy", "Betty", "Helen", "Patricia", "Ruth", "Barbara", "Nancy", "Carol", "Susan",
+            "Janet", "Donna", "Shirley", "Judith", "Pamela", "Kathleen", "Deborah", "Brenda", "Virginia", "Joyce",
+            "Marilyn", "Frances", "Martha", "Joan", "Alice", "Phyllis", "Doris", "Lois", "Ann", "Rose",
+            "Eleanor", "Clara", "Ethel", "Gladys", "Edna", "Mildred", "Irene", "Pauline", "Josephine", "Beatrice",
+            "Florence", "Gertrude", "Marjorie", "Thelma", "Lucille", "Bernice", "Lorraine", "Audrey", "Evelyn", "Vivian"
+        ];
+
+        const maleFirstNames = [
+            "James", "Robert", "John", "William", "Richard", "Charles", "Donald", "George", "Kenneth", "Paul",
+            "Edward", "Ronald", "Steven", "Larry", "Dennis", "Gary", "Frank", "Raymond", "Roger", "Jerry",
+            "Walter", "Harold", "Carl", "Arthur", "Henry", "Lawrence", "Wayne", "Philip", "Douglas", "Alan",
+            "Bernard", "Eugene", "Russell", "Clarence", "Stanley", "Albert", "Fred", "Howard", "Ralph", "Louis",
+            "Norman", "Leonard", "Theodore", "Clifford", "Melvin", "Edwin", "Marvin", "Lloyd", "Milton", "Clyde"
+        ];
+
+        const lastNames = [
+            "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
+            "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin",
+            "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis", "Robinson",
+            "Walker", "Young", "Allen", "King", "Wright", "Scott", "Torres", "Nguyen", "Hill", "Flores",
+            "Green", "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts"
+        ];
+
+        const countryList = [{
+                name: "USA",
+                flag: "🇺🇸"
+            }, {
+                name: "United Kingdom",
+                flag: "🇬🇧"
+            }, {
+                name: "Canada",
+                flag: "🇨🇦"
+            },
+            {
+                name: "Germany",
+                flag: "🇩🇪"
+            }, {
+                name: "France",
+                flag: "🇫🇷"
+            }, {
+                name: "Italy",
+                flag: "🇮🇹"
+            },
+            {
+                name: "Spain",
+                flag: "🇪🇸"
+            }, {
+                name: "Netherlands",
+                flag: "🇳🇱"
+            }, {
+                name: "Sweden",
+                flag: "🇸🇪"
+            },
+            {
+                name: "Ireland",
+                flag: "🇮🇪"
+            }, {
+                name: "Australia",
+                flag: "🇦🇺"
+            }, {
+                name: "Norway",
+                flag: "🇳🇴"
+            },
+            {
+                name: "Denmark",
+                flag: "🇩🇰"
+            }, {
+                name: "Finland",
+                flag: "🇫🇮"
+            }, {
+                name: "Belgium",
+                flag: "🇧🇪"
+            },
+            {
+                name: "Switzerland",
+                flag: "🇨🇭"
+            }, {
+                name: "Austria",
+                flag: "🇦🇹"
+            }, {
+                name: "Portugal",
+                flag: "🇵🇹"
+            },
+            {
+                name: "Greece",
+                flag: "🇬🇷"
+            }, {
+                name: "New Zealand",
+                flag: "🇳🇿"
+            }
+        ];
+
+        const femaleAvatarPool = [
+            "https://randomuser.me/api/portraits/women/68.jpg", "https://randomuser.me/api/portraits/women/75.jpg", "https://randomuser.me/api/portraits/women/80.jpg",
+            "https://randomuser.me/api/portraits/women/88.jpg", "https://randomuser.me/api/portraits/women/90.jpg", "https://randomuser.me/api/portraits/women/65.jpg",
+            "https://randomuser.me/api/portraits/women/70.jpg", "https://randomuser.me/api/portraits/women/72.jpg", "https://randomuser.me/api/portraits/women/95.jpg",
+            "https://randomuser.me/api/portraits/women/82.jpg", "https://randomuser.me/api/portraits/women/78.jpg", "https://randomuser.me/api/portraits/women/85.jpg",
+            "https://randomuser.me/api/portraits/women/63.jpg", "https://randomuser.me/api/portraits/women/92.jpg", "https://randomuser.me/api/portraits/women/60.jpg",
+            "https://randomuser.me/api/portraits/women/94.jpg", "https://randomuser.me/api/portraits/women/77.jpg", "https://randomuser.me/api/portraits/women/87.jpg"
+        ];
+
+        const maleAvatarPool = [
+            "https://randomuser.me/api/portraits/men/68.jpg", "https://randomuser.me/api/portraits/men/72.jpg", "https://randomuser.me/api/portraits/men/75.jpg",
+            "https://randomuser.me/api/portraits/men/79.jpg", "https://randomuser.me/api/portraits/men/83.jpg", "https://randomuser.me/api/portraits/men/85.jpg",
+            "https://randomuser.me/api/portraits/men/91.jpg", "https://randomuser.me/api/portraits/men/65.jpg", "https://randomuser.me/api/portraits/men/71.jpg",
+            "https://randomuser.me/api/portraits/men/80.jpg", "https://randomuser.me/api/portraits/men/88.jpg", "https://randomuser.me/api/portraits/men/93.jpg",
+            "https://randomuser.me/api/portraits/men/67.jpg", "https://randomuser.me/api/portraits/men/77.jpg", "https://randomuser.me/api/portraits/men/62.jpg",
+            "https://randomuser.me/api/portraits/men/89.jpg", "https://randomuser.me/api/portraits/men/95.jpg", "https://randomuser.me/api/portraits/men/98.jpg"
+        ];
+
+        const paymentOptions = [{
+                usd: 100,
+                minutes: 30
+            }, {
+                usd: 150,
+                minutes: 30
+            }, {
+                usd: 200,
+                minutes: 30
+            },
+            {
+                usd: 250,
+                minutes: 45
+            }, {
+                usd: 300,
+                minutes: 60
+            }, {
+                usd: 250,
+                minutes: 60
+            },
+            {
+                usd: 240,
+                minutes: 90
+            }, {
+                usd: 145,
+                minutes: 90
+            }, {
+                usd: 350,
+                minutes: 120
+            },
+            {
+                usd: 160,
+                minutes: 120
+            }, {
+                usd: 155,
+                minutes: 110
+            }, {
+                usd: 465,
+                minutes: 130
+            }
+        ];
+
+        const currencyRates = {
+            KES: {
+                symbol: "KES",
+                rate: 130,
+                name: "Kenya",
+                flag: "🇰🇪"
+            },
+            NGN: {
+                symbol: "₦",
+                rate: 1500,
+                name: "Nigeria",
+                flag: "🇳🇬"
+            },
+            GHS: {
+                symbol: "₵",
+                rate: 15,
+                name: "Ghana",
+                flag: "🇬🇭"
+            },
+            UGX: {
+                symbol: "UGX",
+                rate: 3800,
+                name: "Uganda",
+                flag: "🇺🇬"
+            },
+            TZS: {
+                symbol: "TSh",
+                rate: 2700,
+                name: "Tanzania",
+                flag: "🇹🇿"
+            },
+            ZAR: {
+                symbol: "R",
+                rate: 19,
+                name: "South Africa",
+                flag: "🇿🇦"
+            },
+            RWF: {
+                symbol: "RF",
+                rate: 1300,
+                name: "Rwanda",
+                flag: "🇷🇼"
+            },
+            ZMW: {
+                symbol: "ZMW",
+                rate: 27,
+                name: "Zambia",
+                flag: "🇿🇲"
+            },
+            ETB: {
+                symbol: "Br",
+                rate: 115,
+                name: "Ethiopia",
+                flag: "🇪🇹"
+            },
+            XAF: {
+                symbol: "FCFA",
+                rate: 620,
+                name: "Cameroon",
+                flag: "🇨🇲"
+            },
+            XOF: {
+                symbol: "CFA",
+                rate: 620,
+                name: "Ivory Coast",
+                flag: "🇨🇮"
+            },
+            GMD: {
+                symbol: "D",
+                rate: 75,
+                name: "Gambia",
+                flag: "🇬🇲"
+            },
+            USD: {
+                symbol: "$",
+                rate: 1,
+                name: "Other (USD)",
+                flag: "🌍"
+            }
+        };
+
+        const countrySelect = document.getElementById('countrySelectInline');
+        const chatterAmount = document.getElementById('chatterAmount');
+        const monthlyEarning = document.getElementById('monthlyEarning');
+
+        function updateEarningsDisplay() {
+            const currency = countrySelect.value;
+            const data = currencyRates[currency];
+            if (data && currency !== 'USD') {
+                const dailyMin = Math.round(4000 * (data.rate / 130));
+                const dailyMax = Math.round(5500 * (data.rate / 130));
+                chatterAmount.innerHTML = `${data.symbol} ${dailyMin.toLocaleString()} - ${dailyMax.toLocaleString()}`;
+                const monthlyVal = Math.round(60000 * (data.rate / 130));
+                monthlyEarning.innerHTML = `up to ${data.symbol} ${monthlyVal.toLocaleString()}+ in a month for beginners`;
+            } else if (currency === 'USD') {
+                chatterAmount.innerHTML = `$7.70 - $34.60`;
+                monthlyEarning.innerHTML = `up to $384+ in a month for beginners`;
+            }
+        }
+
+        countrySelect.addEventListener('change', updateEarningsDisplay);
+        updateEarningsDisplay();
+
+        function convertToLocalCurrency(usdAmount, currencyCode) {
+            if (currencyCode === 'USD') return usdAmount;
+            const rate = currencyRates[currencyCode] ? .rate || 130;
+            return Math.round(usdAmount * rate);
+        }
+
+        function formatMinutes(minutes) {
+            if (minutes >= 60) {
+                const hours = Math.floor(minutes / 60);
+                const mins = minutes % 60;
+                if (mins > 0) return `${hours}h ${mins}m`;
+                return `${hours} hour${hours > 1 ? 's' : ''}`;
+            }
+            return `${minutes} min${minutes > 1 ? 's' : ''}`;
+        }
+
+        const popupOverlay = document.getElementById('popupOverlay');
+        const popupForeignerName = document.getElementById('popupForeignerName');
+        const paymentAmount = document.getElementById('paymentAmount');
+        const paymentTime = document.getElementById('paymentTime');
+        const waitingText = document.getElementById('waitingText');
+        const converterBadge = document.getElementById('converterBadge');
+        const converterTextSpan = document.getElementById('converterText');
+        const converterNote = document.getElementById('converterNote');
+        const payPremium = document.getElementById('payPremium');
+        const closePopupBtn = document.getElementById('closePopupBtn');
+
+        let currentForeignerName = '';
+        let currentForeignerFlag = '';
+        let currentPayment = null;
+        let showConverted = false;
+
+        function updatePopupDisplay() {
+            const selectedCurrency = countrySelect.value;
+            const currencyData = currencyRates[selectedCurrency];
+            const localAmount = convertToLocalCurrency(currentPayment.usd, selectedCurrency);
+            const symbol = currencyData ? .symbol || '$';
+            const currencyName = currencyData ? .name || 'USD';
+
+            if (showConverted) {
+                if (selectedCurrency === 'USD') {
+                    paymentAmount.innerHTML = `$${currentPayment.usd} USD`;
+                } else {
+                    paymentAmount.innerHTML = `${symbol} ${localAmount.toLocaleString()}`;
+                }
+                converterTextSpan.innerHTML = `Show in USD`;
+                converterNote.innerHTML = `${currentPayment.usd} USD = ${symbol} ${localAmount.toLocaleString()} (${currencyName})`;
+            } else {
+                paymentAmount.innerHTML = `$${currentPayment.usd} USD`;
+                converterTextSpan.innerHTML = `Convert to ${symbol}`;
+                converterNote.innerHTML = '';
+            }
+        }
+
+        function showPopup(foreignerName, foreignerFlag, payment) {
+            currentForeignerName = foreignerName;
+            currentForeignerFlag = foreignerFlag;
+            currentPayment = payment;
+            showConverted = false;
+
+            const selectedCurrency = countrySelect.value;
+            const currencyData = currencyRates[selectedCurrency];
+            const symbol = currencyData ? .symbol || '$';
+
+            popupForeignerName.innerHTML = `${foreignerFlag} ${foreignerName}`;
+            paymentAmount.innerHTML = `$${payment.usd} USD`;
+            paymentTime.innerHTML = `for ${formatMinutes(payment.minutes)} of chatting`;
+            waitingText.innerHTML = `${foreignerFlag} ${foreignerName} is waiting to connect with you right now!`;
+            converterTextSpan.innerHTML = `Convert to ${symbol}`;
+            converterNote.innerHTML = '';
+
+            popupOverlay.classList.add('active');
+        }
+
+        converterBadge.addEventListener('click', function() {
+            showConverted = !showConverted;
+            updatePopupDisplay();
+        });
+
+        function closePopup() {
+            popupOverlay.classList.remove('active');
+        }
+
+        closePopupBtn.addEventListener('click', closePopup);
+        popupOverlay.addEventListener('click', function(e) {
+            if (e.target === popupOverlay) closePopup();
+        });
+
+        let usedAvatars = [];
+        let currentForeigners = [];
+
+        function getUniqueAvatar(gender) {
+            const pool = gender === "female" ? [...femaleAvatarPool] : [...maleAvatarPool];
+            const available = pool.filter(a => !usedAvatars.includes(a));
+            let selected = available.length ? available[Math.floor(Math.random() * available.length)] : pool[Math.floor(Math.random() * pool.length)];
+            usedAvatars.push(selected);
+            if (usedAvatars.length > pool.length * 2) usedAvatars = [];
+            return selected;
+        }
+
+        function getRandomPayment() {
+            return paymentOptions[Math.floor(Math.random() * paymentOptions.length)];
+        }
+
+        function generateForeigner(idx) {
+            const gender = Math.random() > 0.48 ? "female" : "male";
+            const firstName = gender === "female" ?
+                femaleFirstNames[Math.floor(Math.random() * femaleFirstNames.length)] :
+                maleFirstNames[Math.floor(Math.random() * maleFirstNames.length)];
+            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+            const country = countryList[Math.floor(Math.random() * countryList.length)];
+            const payment = getRandomPayment();
+            return {
+                id: idx,
+                fullName: `${firstName} ${lastName}`,
+                displayName: `${firstName} ${lastName.charAt(0)}.`,
+                flag: country.flag,
+                avatar: getUniqueAvatar(gender),
+                payment: payment
+            };
+        }
+
+        function renderForeigners() {
+            const container = document.getElementById('foreignersGrid');
+            if (!container) return;
+            container.innerHTML = currentForeigners.map(f => `
+      <div class="foreigner-card">
+        <div class="foreigner-info" onclick="handleStartChatClick(${f.id})">
+          <div class="foreigner-avatar" style="background-image: url('${f.avatar}');">
+            <div class="online-status-badge"></div>
+          </div>
+          <div>
+            <div class="foreigner-name">${f.flag} ${f.displayName}</div>
+            <div class="status-text"><i class="fas fa-circle" style="font-size: 6px;"></i> Active now</div>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button class="btn-start-chat" onclick="handleStartChatClick(${f.id})"><i class="fas fa-comment"></i> Start Chat</button>
+        </div>
+      </div>
+    `).join('');
+        }
+
+        window.handleStartChatClick = function(id) {
+            const foreigner = currentForeigners.find(f => f.id === id);
+            if (foreigner) {
+                showPopup(foreigner.fullName, foreigner.flag, foreigner.payment);
+            }
+        };
+
+        function refreshForeigners() {
+            usedAvatars = [];
+            const newList = [];
+            for (let i = 0; i < 16; i++) {
+                newList.push(generateForeigner(i));
+            }
+            currentForeigners = newList;
+            renderForeigners();
+        }
+
+        // Refresh every 20 seconds
+        refreshForeigners();
+        const refreshInterval = setInterval(refreshForeigners, 20000);
+
+        // Also refresh when page becomes visible again
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                refreshForeigners();
+            }
+        });
+
+        countrySelect.addEventListener('change', function() {
+            updateEarningsDisplay();
+            if (popupOverlay.classList.contains('active') && currentPayment) {
+                updatePopupDisplay();
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone_number');
+            const verificationStatus = document.getElementById('verificationStatus');
+            const updateBtn = document.getElementById('updateBtn');
+            const updateBtnText = document.getElementById('updateBtnText');
+            const verifyPhoneBtn = document.getElementById('verifyPhoneBtn');
+            const VfeeSpan = document.getElementById('Vfee');
+            const automaticVerificationAttemptLimit = 10;
+
+            let verificationFee = 499;
+
+            if (VfeeSpan) VfeeSpan.textContent = verificationFee;
+
+            let originalPhoneNumber = phoneInput ? phoneInput.value.trim() : '';
+            let phoneVerified = false;
+            let verificationReference = '';
+
+            function validatePhoneNumber(phoneNumber) {
+                const cleaned = phoneNumber.replace(/\D/g, '');
+                if (cleaned.length === 10 && cleaned.startsWith('0')) return '254' + cleaned.substring(1);
+                if (cleaned.length === 12 && cleaned.startsWith('254')) return cleaned;
+                if (cleaned.length === 9) return '254' + cleaned;
+                return null;
+            }
+
+            function updateVerificationStatus(isVerified) {
+                phoneVerified = isVerified;
+                if (updateBtn) updateBtn.disabled = !isVerified;
+                if (verificationStatus) {
+                    verificationStatus.innerHTML = isVerified ?
+                        `<div class="sp-notice sp-notice--success"><i class="fas fa-circle-check"></i><span><strong>Premium Activated.</strong> Ready for M-Pesa transactions.</span></div>` :
+                        `<div class="sp-notice sp-notice--warning"><i class="fas fa-clock"></i><span><strong>Activation required.</strong> Activate your account to unlock all features.</span></div>`;
+                }
+                if (updateBtnText) updateBtnText.innerHTML = isVerified ? 'Save Profile' : 'Complete Activation First';
+            }
+
+            function formatPaymentAmount(amount) {
+                const numeric = Number(amount);
+                return Number.isFinite(numeric) ? `Ksh ${numeric.toLocaleString('en-KE')}` : `Ksh ${verificationFee}`;
+            }
+
+            function showActivationModal(phoneNumber) {
+                const validatedPhone = validatePhoneNumber(phoneNumber);
+                if (!validatedPhone) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid Format',
+                        html: '<div class="text-left"><p class="mb-2 text-sm">Valid formats:</p><ul class="list-disc pl-4 space-y-1 text-xs"><li>07XX XXX XXX</li><li>2547XX XXX XXX</li><li>7XX XXX XXX</li></ul></div>',
+                        confirmButtonColor: '#3b82f6'
+                    });
+                    return;
+                }
+                Swal.fire({
+                    title: 'Premium Activation',
+                    html: `
+                <div class="space-y-2">
+                    <div class="bg-blue-50 rounded p-2">
+                        <p class="text-blue-800 text-xs font-medium">M-Pesa Charge</p>
+                        <p class="text-sm font-bold">Ksh ${verificationFee}</p>
+                        <p class="text-xs text-blue-700 mt-1">To activate: <span class="font-semibold">+${validatedPhone}</span></p>
+                    </div>
+                    <div class="bg-green-50 rounded p-2">
+                        <p class="text-green-800 text-xs font-bold">Bonus Credit!</p>
+                        <p class="text-green-700 text-xs">Ksh ${verificationFee} will be added as bonus.</p>
+                    </div>
+                </div>
+            `,
+                    showCancelButton: true,
+                    confirmButtonText: `Pay Ksh ${verificationFee} & Activate`,
+                    cancelButtonText: 'Cancel',
+                    confirmButtonColor: '#10b981',
+                    cancelButtonColor: '#ef4444',
+                    width: window.innerWidth > 500 ? '500px' : '90%'
+                }).then((result) => {
+                    if (result.isConfirmed) initiateActivation(validatedPhone);
+                });
+            }
+
+            function initiateActivation(phoneNumber) {
+                Swal.fire({
+                    title: 'Processing...',
+                    html: '<div class="text-center"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600 mx-auto"></div><p class="text-gray-600 text-sm mt-2">Preparing request...</p></div>',
+                    allowOutsideClick: false,
+                    showConfirmButton: false
+                });
+                const _csrfEl = document.querySelector('[name=csrfmiddlewaretoken]');
+                const _csrfCookie = (function() {
+                    const name = 'csrftoken=';
+                    const c = document.cookie.split(';').map(s => s.trim()).find(s => s.startsWith(name));
+                    return c ? c.substring(name.length) : null;
+                })();
+                const _csrf = _csrfEl ? _csrfEl.value : _csrfCookie;
+                const _headers = {
+                    'Content-Type': 'application/json'
+                };
+                if (_csrf) _headers['X-CSRFToken'] = _csrf;
+                console.log("Phone:", phoneNumber)
+
+                fetch('/activation/pay/', {
+                    method: 'POST',
+                    headers: _headers,
+                    body: JSON.stringify({
+                        phone_number: phoneNumber,
+                        amount: verificationFee
+                    })
+                }).then(async (response) => {
+                    const data = await response.json();
+                    if (data.success && data.reference) {
+                        verificationReference = data.reference;
+                        showPaymentInstructions(phoneNumber);
+                    } else {
+                        throw new Error(data.message);
+                    }
+                }).catch(e => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Request Failed',
+                        text: e.message || 'Please try again.',
+                        confirmButtonColor: '#ef4444'
+                    });
+                });
+            }
+
+            function showPaymentInstructions(phoneNumber) {
+                Swal.fire({
+                    title: 'Action Required',
+                    html: `
+                <div class="space-y-2">
+                    <div class="bg-blue-50 rounded p-2">
+                        <p class="text-blue-800 font-bold text-xs">Check your phone</p>
+                        <p class="text-blue-700 text-xs">M-Pesa request sent to: <span class="font-bold">+${phoneNumber}</span></p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-start gap-2"><div class="w-4 h-4 bg-blue-100 rounded-full flex items-center justify-center text-[10px] font-bold">1</div><p class="text-xs">Check for M-Pesa prompt</p></div>
+                        <div class="flex items-start gap-2"><div class="w-4 h-4 bg-red-100 rounded-full flex items-center justify-center text-[10px] font-bold">2</div><p class="text-xs"><span class="font-bold text-red-600">Enter your PIN</span> to complete</p></div>
+                        <div class="flex items-start gap-2"><div class="w-4 h-4 bg-green-100 rounded-full flex items-center justify-center text-[10px] font-bold">3</div><p class="text-xs">Wait for confirmation message</p></div>
+                    </div>
+                </div>
+            `,
+                    confirmButtonText: '✅ Payment Complete',
+                    cancelButtonText: 'Cancel',
+                    showCancelButton: true,
+                    confirmButtonColor: '#10b981',
+                    cancelButtonColor: '#ef4446',
+                    width: window.innerWidth > 500 ? '520px' : '90%',
+                    didOpen: () => {
+                        const btn = Swal.getConfirmButton();
+                        if (btn) {
+                            btn.disabled = true;
+                            let seconds = 8;
+                            btn.textContent = `Wait ${seconds}s`;
+                            const interval = setInterval(() => {
+                                seconds--;
+                                if (seconds > 0) {
+                                    btn.textContent = `Wait ${seconds}s`;
+                                } else {
+                                    clearInterval(interval);
+                                    btn.disabled = false;
+                                    btn.textContent = '✅ Payment Complete';
+                                }
+                            }, 1000);
+                        }
+                    }
+                }).then((r) => {
+                    if (r.isConfirmed) verifyActivation(phoneNumber, verificationReference);
+                });
+            }
+
+            async function verifyActivation(phoneNumber, reference) {
+                let lastMessage = 'Payment status: Pending.';
+                Swal.fire({
+                    title: 'Verifying...',
+                    html: '<div class="text-center"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div><p id="attemptLabel" class="text-gray-600 text-sm mt-2 font-semibold">Verifying activation...</p></div>',
+                    allowOutsideClick: false,
+                    showConfirmButton: false
+                });
+
+                for (let attempt = 1; attempt <= automaticVerificationAttemptLimit; attempt++) {
+                    const label = document.getElementById('attemptLabel');
+                    if (label) label.textContent = `Checking (${attempt}/${automaticVerificationAttemptLimit})...`;
+
+                    try {
+                        const response = await fetch('/activation/check-status/', {
+                            method: 'POST',
+                            headers: (function() {
+                                const _csrfEl2 = document.querySelector('[name=csrfmiddlewaretoken]');
+                                const _csrfCookie2 = (function() {
+                                    const name = 'csrftoken=';
+                                    const c = document.cookie.split(';').map(s => s.trim()).find(s => s.startsWith(name));
+                                    return c ? c.substring(name.length) : null;
+                                })();
+                                const _csrf2 = _csrfEl2 ? _csrfEl2.value : _csrfCookie2;
+                                const h = {
+                                    'Content-Type': 'application/json'
+                                };
+                                if (_csrf2) h['X-CSRFToken'] = _csrf2;
+                                return h;
+                            })(),
+                            body: JSON.stringify({
+                                reference: reference,
+                                poll: true
+                            })
+                        });
+                        const data = await response.json();
+                        const status = String(data.status || '').toLowerCase();
+                        if (status === 'failed') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Payment Failed',
+                                confirmButtonColor: '#f59e0b'
+                            });
+                            return
+                        }
+
+                        if (data.success && (status === 'completed' || status === 'success')) {
+                            updateVerificationStatus(true);
+                            originalPhoneNumber = phoneNumber;
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Premium Activated!',
+                                html: `<div class="text-center space-y-2">
+                            <div class="text-3xl">🎉</div>
+                            <p class="font-semibold text-green-600">Premium Activated!</p>
+                            <div class="bg-green-50 rounded p-2">
+                                <p class="text-green-700 text-xs">Ksh ${data.bonus_amount || verificationFee} bonus added!</p>
+                                <p class="text-blue-800 text-xs mt-1">Total balance: Ksh ${data.total_balance || verificationFee}</p>
+                            </div>
+                        </div>`,
+                                confirmButtonText: 'Continue',
+                                confirmButtonColor: '#10b981'
+                            }).then(() => window.location.href = "/processing/");
+                            return;
+                        }
+                        lastMessage = data.message || `Payment status: ${status}.`;
+                        if (['failed', 'cancelled', 'expired'].includes(status)) break;
+                    } catch (error) {
+                        lastMessage = error ? .message || 'Verification failed.';
+                    }
+                    if (attempt < automaticVerificationAttemptLimit) await new Promise(resolve => setTimeout(resolve, 2500));
+                }
+
+                verificationReference = reference;
+                // Show error after exhausting automatic verification attempts
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Verification Unsuccessful',
+                    html: `<div class="text-left">Payment Failed.</p></div>`,
+                    showCancelButton: true,
+                    confirmButtonText: 'Retry',
+                    cancelButtonText: 'Close',
+                    confirmButtonColor: '#f59e0b',
+                    width: window.innerWidth > 520 ? '520px' : '92%'
+                }).then((res) => {
+                    if (res.isConfirmed) {
+                        initiateActivation(phoneNumber);
+                    } else if (res.isDenied) {
+                        window.open('/contact/', '_blank', 'noopener,noreferrer');
+                    }
+                });
+            }
+
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function() {
+                    let val = this.value.replace(/\D/g, '');
+                    if (val.startsWith('254')) {
+                        val = '+254 ' + val.substring(3);
+                    } else if (val.startsWith('0') && val.length <= 10) {
+                        if (val.length > 3) val = val.substring(0, 4) + ' ' + val.substring(4);
+                        if (val.length > 8) val = val.substring(0, 8) + ' ' + val.substring(8);
+                    } else if (val.length === 9) {
+                        val = '0' + val;
+                        if (val.length > 4) val = val.substring(0, 4) + ' ' + val.substring(4);
+                        if (val.length > 8) val = val.substring(0, 8) + ' ' + val.substring(8);
+                    }
+                    this.value = val;
+                    if (val.replace(/\D/g, '') !== originalPhoneNumber.replace(/\D/g, '')) updateVerificationStatus(false);
+                    const isValid = validatePhoneNumber(this.value) !== null;
+                    if (this.value.length > 5) {
+                        this.classList.toggle('border-green-300', isValid);
+                        this.classList.toggle('border-red-300', !isValid);
+                    }
+                });
+            }
+
+            const verifyHandler = () => {
+                const phone = phoneInput ? phoneInput.value.trim() : '';
+                if (!phone) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Phone Required',
+                        text: 'Enter your phone number first.',
+                        confirmButtonColor: '#f59e0b'
+                    });
+                    phoneInput ? .focus();
+                    return;
+                }
+                showActivationModal(phone);
+            };
+
+            if (verifyPhoneBtn) verifyPhoneBtn.addEventListener('click', verifyHandler);
+
+            if (updateBtn) {
+                updateBtn.addEventListener('click', async function(e) {
+                    if (!phoneVerified) {
+                        e.preventDefault();
+                        const phone = phoneInput.value.trim();
+                        const validated = validatePhoneNumber(phone);
+                        if (!validated) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Invalid Number',
+                                text: 'Enter a valid Kenyan phone number',
+                                confirmButtonColor: '#ef4444'
+                            });
+                            phoneInput.focus();
+                            return;
+                        }
+                        const result = await Swal.fire({
+                            title: 'Pay for Premium',
+                            html: `<div class="space-y-2"><div class="bg-blue-50 rounded p-2"><p class="text-blue-800 text-sm">Activate <strong>+${validated}</strong></p></div><div class="bg-amber-50 rounded p-2"><p class="text-amber-800 text-xs">Ksh ${verificationFee} via M-Pesa</p></div></div>`,
+                            showCancelButton: true,
+                            confirmButtonText: 'Continue',
+                            cancelButtonText: 'Cancel',
+                            confirmButtonColor: '#3b82f6'
+                        });
+                        if (result.isConfirmed) showActivationModal(phone);
+                    }
+                });
+            }
+
+            // Activate Now button: prompt for phone then call showActivationModal
+            const activateNowBtn = document.getElementById('activateNowBtn');
+            const payPremiumBtn = document.getElementById('payPremium');
+            if (activateNowBtn) {
+                activateNowBtn.addEventListener('click', function() {
+                    Swal.fire({
+                        title: 'Activate Account',
+                        html: `<input type="tel" id="swalPhoneInput" class="swal2-input" placeholder="e.g. 07XX XXX XXX" inputmode="numeric" pattern="[0-9]*">`,
+                        showCancelButton: true,
+                        confirmButtonText: 'Submit',
+                        cancelButtonText: 'Cancel',
+                        focusConfirm: false,
+                        preConfirm: () => {
+                            const phone = document.getElementById('swalPhoneInput') ? .value.trim();
+                            if (!phone) Swal.showValidationMessage('Enter your phone number');
+                            return phone;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed && result.value) {
+                            const phone = result.value;
+                            showActivationModal(phone);
+                        }
+                    });
+                });
+            }
+
+            if (payPremiumBtn) {
+                payPremiumBtn.addEventListener('click', function() {
+                    Swal.fire({
+                        title: 'Activate Account',
+                        html: `<input type="tel" id="swalPhoneInput" class="swal2-input" placeholder="e.g. 07XX XXX XXX" inputmode="numeric" pattern="[0-9]*">`,
+                        showCancelButton: true,
+                        confirmButtonText: 'Submit',
+                        cancelButtonText: 'Cancel',
+                        focusConfirm: false,
+                        preConfirm: () => {
+                            const phone = document.getElementById('swalPhoneInput') ? .value.trim();
+                            if (!phone) Swal.showValidationMessage('Enter your phone number');
+                            return phone;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed && result.value) {
+                            const phone = result.value;
+                            showActivationModal(phone);
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

