@@ -561,15 +561,15 @@
       letter-spacing: 0.4px;
     }
 
-    /* ---------- HOW IT WORKS ---------- */
+    /* ---------- HOW IT WORKS – Mobile Optimized ---------- */
     .how-section {
-      padding: 70px 0 60px;
+      padding: 50px 0 40px;
       background: #ffffff;
     }
 
     .how-header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 32px;
     }
     .how-header .section-sub {
       margin-left: auto;
@@ -579,26 +579,27 @@
     .how-grid {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 16px;
     }
 
     @media (min-width: 600px) {
       .how-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
       }
     }
     @media (min-width: 992px) {
       .how-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 32px;
+        gap: 28px;
       }
     }
 
     .how-card {
       background: #f8fafc;
-      border-radius: 28px;
-      padding: 36px 28px;
+      border-radius: 20px;
+      padding: 24px 18px;
       text-align: center;
       border: 1px solid #e2e8f0;
       transition: all 0.3s ease;
@@ -606,34 +607,89 @@
     }
 
     .how-card:hover {
-      transform: translateY(-6px);
+      transform: translateY(-4px);
       border-color: #2563eb;
-      box-shadow: 0 20px 48px rgba(37, 99, 235, 0.08);
+      box-shadow: 0 16px 36px rgba(37, 99, 235, 0.06);
     }
 
     .how-card .icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 24px;
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
       background: #dbeafe;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
+      font-size: 1.6rem;
       color: #2563eb;
-      margin: 0 auto 18px;
+      margin: 0 auto 14px;
     }
 
     .how-card h3 {
-      font-size: 1.2rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       color: #0f172a;
     }
 
     .how-card p {
       color: #475569;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+      .how-section {
+        padding: 40px 0 30px;
+      }
+      .how-header {
+        margin-bottom: 24px;
+      }
+      .section-title {
+        font-size: 1.6rem;
+      }
+      .section-sub {
+        font-size: 0.9rem;
+      }
+      .how-grid {
+        gap: 12px;
+      }
+      .how-card {
+        padding: 18px 14px;
+        border-radius: 16px;
+      }
+      .how-card .icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+        border-radius: 14px;
+        margin-bottom: 10px;
+      }
+      .how-card h3 {
+        font-size: 0.95rem;
+      }
+      .how-card p {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .how-card {
+        padding: 14px 12px;
+      }
+      .how-card .icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        border-radius: 12px;
+        margin-bottom: 8px;
+      }
+      .how-card h3 {
+        font-size: 0.85rem;
+      }
+      .how-card p {
+        font-size: 0.75rem;
+      }
     }
 
     /* ---------- TRUST ---------- */
@@ -829,97 +885,35 @@
       color: #fff;
     }
 
-    /* ---------- LOADING OVERLAY ---------- */
-    .loading-overlay {
+    /* ===== SPINNER OVERLAY – Clean & Minimal (MOOV-inspired) ===== */
+    #spinner-overlay {
       position: fixed;
       inset: 0;
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: none;
       justify-content: center;
-      color: #fff;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-      gap: 20px;
-    }
-
-    .loading-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .loading-overlay .logo-big {
-      display: flex;
       align-items: center;
-      gap: 14px;
-      font-size: 2.4rem;
-      font-weight: 900;
-      letter-spacing: -0.02em;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 9999;
+      transition: opacity 0.3s ease;
     }
 
-    .loading-overlay .logo-big i {
-      font-size: 2.8rem;
-      color: #93c5fd;
+    #spinner-overlay.active {
+      display: flex;
     }
 
-    .loading-overlay .spinner {
-      width: 56px;
-      height: 56px;
-      border: 5px solid rgba(255, 255, 255, 0.10);
+    .spinner-ring {
+      width: 44px;
+      height: 44px;
+      border: 4px solid rgba(255, 255, 255, 0.10);
+      border-top: 4px solid #93c5fd;
       border-radius: 50%;
-      border-top-color: #fff;
       animation: spin 0.9s linear infinite;
     }
 
     @keyframes spin {
       to {
         transform: rotate(360deg);
-      }
-    }
-
-    .loading-overlay .loading-text {
-      font-size: 1rem;
-      color: #cbd5e1;
-      letter-spacing: 0.5px;
-      animation: pulseText 1.5s ease-in-out infinite;
-    }
-
-    @keyframes pulseText {
-      0%,
-      100% {
-        opacity: 0.5;
-      }
-      50% {
-        opacity: 1;
-      }
-    }
-
-    .loading-overlay .progress-track {
-      max-width: 240px;
-      width: 60%;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .loading-overlay .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: #93c5fd;
-      border-radius: 4px;
-      animation: loadBar 3s ease-in-out forwards;
-    }
-
-    @keyframes loadBar {
-      0% {
-        width: 0%;
-      }
-      100% {
-        width: 100%;
       }
     }
 
@@ -938,16 +932,9 @@
 </head>
 <body>
 
-  <!-- ========== LOADING OVERLAY ========== -->
-  <div class="loading-overlay" id="loadingOverlay">
-    <div class="logo-big">
-      <i class="fas fa-comment-dots"></i> ConnectNow
-    </div>
-    <div class="spinner"></div>
-    <div class="loading-text">Redirecting you...</div>
-    <div class="progress-track">
-      <div class="progress-bar"></div>
-    </div>
+  <!-- ===== SPINNER OVERLAY – Clean & Minimal ===== -->
+  <div id="spinner-overlay">
+    <div class="spinner-ring"></div>
   </div>
 
   <!-- ========== HEADER ========== -->
@@ -1131,22 +1118,26 @@
       });
     });
 
-    // ========== REDIRECT WITH LOADING OVERLAY ==========
-    const loadingOverlay = document.getElementById('loadingOverlay');
+    // ===== SPINNER OVERLAY – Clean & Minimal =====
+    const spinnerOverlay = document.getElementById('spinner-overlay');
+
+    function showSpinner() {
+      spinnerOverlay.classList.add('active');
+    }
+
+    function hideSpinner() {
+      spinnerOverlay.classList.remove('active');
+    }
+
+    // ===== REDIRECT WITH SPINNER =====
     const redirectBtns = document.querySelectorAll('.redirect-btn');
 
     redirectBtns.forEach(btn => {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
 
-        // Show loading overlay
-        loadingOverlay.classList.add('active');
-
-        // Reset progress bar animation
-        const progressBar = loadingOverlay.querySelector('.progress-bar');
-        progressBar.style.animation = 'none';
-        void progressBar.offsetWidth; // trigger reflow
-        progressBar.style.animation = 'loadBar 3s ease-in-out forwards';
+        // Show spinner
+        showSpinner();
 
         // Redirect after 3 seconds
         setTimeout(() => {
